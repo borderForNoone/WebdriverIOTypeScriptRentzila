@@ -3,16 +3,16 @@ import Page from './page';
 class AdvertsPage extends Page {
     readonly checkedCheckboxElement = '//input[@data-testid="serviceCheckbox" and @checked]/parent::div';
     readonly relevantUnitNames = '[data-testid="serviceLabel"]';
-    readonly relevantUnits = 'div.CheckboxService_radio__S91Wr';
+    readonly relevantUnits = 'div[class*="CheckboxService"]';
     readonly firstArrow = '(//div[@data-testid="rightArrow"])[1]';
     readonly secondArrow = '(//div[@data-testid="rightArrow"])[2]';
     readonly thirdArrow = '(//div[@data-testid="rightArrow"])[3]';
     readonly products = '[data-testid="cardWrapper"]';
-    readonly unclickedArrows = '[class="ServiceCategory_svgContainer__mPCMj"] > *';
+    readonly unclickedArrows = '[class*="ServiceCategory_svgContainer"] > *';
     readonly unclickedCategoriesArrows = '[data-testid="firstCategoryList"] [data-testid="firstCategoryImage"]';
     readonly secondLayerOfUnclickedCategoriesArrows = '[data-testid="firstCategoryList"] [data-testid="secondCategoryImage"]';
-    readonly relevantCategoriesUnits = 'div.ThirdCategory_wrapper__gQ5DT';
-    readonly relevantCategoriesUnitsNames = 'div.ThirdCategory_wrapper__gQ5DT p';
+    readonly relevantCategoriesUnits = '[data-testid="thirdCategoryLabel"]';
+    readonly relevantCategoriesUnitsNames = '[data-testid="thirdCategoryLabel"] p';
 
     readonly searchInput = '[data-testid="searchInput"]';
 
@@ -97,7 +97,7 @@ class AdvertsPage extends Page {
             await arrow.click();
         });
 
-        await browser.pause(1500);
+        await browser.pause(2000);
     } 
 }
 

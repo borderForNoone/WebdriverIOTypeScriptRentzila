@@ -2,7 +2,7 @@ import { expect } from '@wdio/globals';
 import homePage from '../pageobjects/home.page';
 import advertsPage from '../pageobjects/adverts.page';
 import unitPage from '../pageobjects/unit.page';
-import { repeatTestCaseForService } from '../helpers/serviceHelper';
+import { repeatTestCaseForspecialEquipment } from '../helpers/serviceHelper';
 
 let specialEquipmentItemsNames: string[];
 let firstSpecialEquipmentItemName: string;
@@ -12,7 +12,7 @@ xdescribe('id:C213 - Checking the Спецтехніка section and related fun
         await homePage.scrollToSpecialEquipmentSection();
         await homePage.validateSpecialEquipmentSection();
         
-        specialEquipmentItemsNames = await homePage.getAllISpecialEquipmentItemsNames();
+        specialEquipmentItemsNames = await homePage.getAllSpecialEquipmentItemsNames();
         console.log(specialEquipmentItemsNames);
 
         firstSpecialEquipmentItemName = await homePage.getFirstSpecialEquipmentItemName();
@@ -46,7 +46,7 @@ xdescribe('id:C213 - Checking the Спецтехніка section and related fun
         ];
 
         for (const specialEquipmentLocator of specialEquipmentCategories) {
-            await repeatTestCaseForService(specialEquipmentLocator);
+            await repeatTestCaseForspecialEquipment(specialEquipmentLocator);
         }
     });
 });

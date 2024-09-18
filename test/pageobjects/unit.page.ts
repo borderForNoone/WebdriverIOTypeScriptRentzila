@@ -1,8 +1,8 @@
 import Page from './page';
 
 class UnitPage extends Page {
-    readonly servicesProvided = 'div.UnitCharacteristics_service__aTyk2';
-    readonly servicesContainer = 'div.UnitCharacteristics_services_container__hSEbl';
+    readonly servicesProvided = 'div[class*=UnitCharacteristics_service]';
+    readonly servicesContainer = 'div[class*=UnitCharacteristics_services_container]';
 
     async validateServiceProvided(expectedService: string) {
         await $(this.servicesContainer).waitForDisplayed({ timeout: 30000 });

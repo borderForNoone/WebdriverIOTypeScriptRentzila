@@ -7,7 +7,7 @@ import { repeatTestCaseForService } from '../helpers/serviceHelper';
 let serviceNames: string[];
 let firstItemName: string;
 
-xdescribe('id:C212 - Checking "Послуги" section on the main page', () => {
+describe('id:C212 - Checking "Послуги" section on the main page', () => {
     it('1. Scroll to the ""Послуги"" section and check if the ""Популярні"" tab and 7 services below the ""Послуги"" label are displayed.', async () => {
         await homePage.scrollToServicesSection();
         await homePage.validateServicesSection();

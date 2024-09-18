@@ -2,8 +2,20 @@ import { expect } from '@wdio/globals';
 import homePage from '../pageobjects/home.page';
 import { verifyContactUsForm } from '../helpers/contactUsHelper';
 import { getListOfBackcalles } from '../helpers/apiHelper';
+import { deleteBackcalle } from '../helpers/apiHelper';
+import { faker } from '@faker-js/faker';
+
+let createdBackcallId: number;
+let randomName = faker.person.firstName();
+let phoneNumber = '+380506743060';
 
 describe('id:C226 - Verify ""У Вас залишилися питання?"" form', () => {
+    after(async () => {
+        if (createdBackcallId) {
+            await deleteBackcalle(createdBackcallId); 
+        }
+    });
+
     it('1. Scroll down to the ""У Вас залишилися питання?"" form.', async () => {
         await homePage.scrollToConsultationSection();
         await expect($(homePage.consultationSection)).toBeDisplayed();
@@ -50,7 +62,7 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
 
         await phoneNumberField.clearValue();
         
-        await phoneNumberField.setValue('+380506743060');
+        await phoneNumberField.setValue(phoneNumber);
 
         await $(homePage.oderConsultation).click();
 
@@ -69,41 +81,34 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
         );
     });
 
-    it("6. Input the ''Test'' into the ''Ім'я'' field_" +
-        "'_There are no restrictions for the ''Ім'я'' field_" +
-        "Enter the invalid phone number: " +
-        "+38063 111 111" +
-        "+1 1111111111111", async () => {
-            const nameField = $(homePage.consultationSectionNameField);
-            const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
-    
-            await nameField.clearValue();
-            await nameField.setValue('Test');
+    it("6. Input the ''Test'' into the ''Ім'я'' field_ put random name, Enter the invalid phone number: +38063 111 111, +1 1111111111111", async () => {
+        const nameField = $(homePage.consultationSectionNameField);
+        const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
 
-            await phoneNumberField.clearValue();
-            await phoneNumberField.setValue('+38063 111 111');
+        await nameField.clearValue();
+        await nameField.setValue(randomName);
 
-            await $(homePage.oderConsultation).click();
+        await phoneNumberField.clearValue();
+        await phoneNumberField.setValue('+38063 111 111');
 
-            await verifyContactUsForm();
+        await $(homePage.oderConsultation).click();
 
-            await phoneNumberField.clearValue();
-            await phoneNumberField.setValue('+1 1111111111111');
+        await verifyContactUsForm();
 
-            await $(homePage.oderConsultation).click();
+        await phoneNumberField.clearValue();
+        await phoneNumberField.setValue('+1 1111111111111');
 
-            await verifyContactUsForm();
+        await $(homePage.oderConsultation).click();
+
+        await verifyContactUsForm();
     });
 
-    it('7. Input the valid phone number into the ""Номер"" field:' +
-        '+380506743060' +
-        '+1 1111111111111' +
-        'After each input click on the ""Замовити консультацію"" button.', async () => {
-            const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
-            await phoneNumberField.clearValue();
-            await phoneNumberField.setValue('+380506743060');
+    it('7. Input the valid phone number into the ""Номер"" field: +380506743060', async () => {
+        const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
+        await phoneNumberField.clearValue();
+        await phoneNumberField.setValue(phoneNumber);
 
-            await $(homePage.oderConsultation).click();
+        await $(homePage.oderConsultation).click();
     });
 
     it('8. Click on the ""Ok"" button on the modal.', async () => {
@@ -112,16 +117,11 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
 
     it('9. Log in as the Admin to the Admin panel and check that this feedback is present.', async () => {
         const backcallList = await getListOfBackcalles();
-    
         const lastBackcall = backcallList[backcallList.length - 1]; 
-    
-        expect(lastBackcall.name).toEqual("Test");
-        expect(lastBackcall.phone).toEqual("+380506743060");
-    
-        const createdDate = new Date(lastBackcall.created_date); 
-        const currentDate = new Date();
-    
-        const timeDifferenceInMinutes = Math.abs((currentDate.getTime() - createdDate.getTime()) / 60000);
-        expect(timeDifferenceInMinutes).toBeLessThan(10); 
+
+        expect(lastBackcall.name).toEqual(randomName);
+        expect(lastBackcall.phone).toEqual(phoneNumber);
+
+        createdBackcallId = lastBackcall.id;
     });    
 });
