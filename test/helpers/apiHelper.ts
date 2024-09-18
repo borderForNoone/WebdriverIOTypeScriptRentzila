@@ -4,7 +4,7 @@ let adminAccessToken: string | null = null;
 
 export async function createAdminAccessToken() {
     const url = 'https://dev.rentzila.com.ua/api/auth/jwt/create/';
-    
+
     const credentials = {
         email: process.env.ADMIN_USERNAME,
         password: process.env.ADMIN_PASSWORD
@@ -13,7 +13,7 @@ export async function createAdminAccessToken() {
     try {
         const response = await axios.post(url, credentials);
 
-        adminAccessToken = response.data.access; 
+        adminAccessToken = response.data.access;
         return adminAccessToken;
     } catch (error) {
         return error;
@@ -30,11 +30,32 @@ export async function getListOfBackcalles() {
     try {
         const response = await axios.get(url, {
             headers: {
-                Authorization: `Bearer ${adminAccessToken}` 
+                Authorization: `Bearer ${adminAccessToken}`
             }
         });
 
         return response.data;
+    } catch (error) {
+        console.error('Error fetching backcall list:', error);
+        throw error;
+    }
+}
+
+export async function deleteBackcalle(id: Number) {
+    const url = `https://dev.rentzila.com.ua/api/backcall/${id}/`;
+
+    if (!adminAccessToken) {
+        await createAdminAccessToken();
+    }
+
+    try {
+        const response = await axios.delete(url, {
+            headers: {
+                Authorization: `Bearer ${adminAccessToken}`
+            }
+        });
+
+        return { status: response.status, data: response.data };
     } catch (error) {
         console.error('Error fetching backcall list:', error);
         throw error;

@@ -1,10 +1,10 @@
 import Page from './page';
 
 class HomePage extends Page {
-    readonly header = "h1.HeroSection_title__QIzpM";
+    readonly header = "h1[class*=HeroSection_title]";
 
-    readonly serviceItemsNames = '[data-testid="services"] .RentzilaProposes_proposes_list__X8dRW > * .RentzilaProposes_name__DTnwr';
-    readonly serviceItems = '[data-testid="services"] .RentzilaProposes_proposes_list__X8dRW > *';
+    readonly serviceItemsNames = '[data-testid="services"] [class*=RentzilaProposes_proposes_list] > * [class*=RentzilaProposes_name]';
+    readonly serviceItems = '[data-testid="services"] [class*=RentzilaProposes_proposes_list] > *';
     readonly servicesSection = '[data-testid="services"]';
     readonly popularTab = '[data-testid="services__populyarni"';
     readonly serviceAgriculturalTab = '[data-testid="services__silskogospodarski"]';
@@ -16,27 +16,8 @@ class HomePage extends Page {
     readonly specialEquipmentAgriculturalTab = '[data-testid="specialEquipment__silskogospodarska"]';
     readonly specialEquipmentBuildingTab = '[data-testid="specialEquipment__budivelna"]';
     readonly specialEquipmentTabOther = '[data-testid="specialEquipment__insha"]';
-    readonly specialEquipmentItems = '[data-testid="specialEquipment"] .RentzilaProposes_proposes_list__X8dRW > *';
-    readonly specialEquipmentItemsNames = '[data-testid="specialEquipment"] .RentzilaProposes_proposes_list__X8dRW > * .RentzilaProposes_name__DTnwr';
-
-    readonly footer = '.Footer_footer__Dhw_9';
-    readonly rentzilaLogo = '.Footer_footer__Dhw_9 [data-testid="logo"]';
-    readonly eboutUsLable = '[data-testid="content"]';
-    readonly privacyPolicy = '[href="/privacy-policy/"]';
-    readonly cookiePolicy = '[href="/cookie-policy/"]';
-    readonly termsConditions = '[href="/terms-conditions/"]';
-    readonly forBuyers = '.Footer_footer__Dhw_9 .RentzilaForBuyers_title__k3tHn';
-    readonly products = '.Footer_footer__Dhw_9 [href="/products/"]';
-    readonly tendersMap = '[href="/tenders-map/"]';
-    readonly contacts = '.Footer_footer__Dhw_9 .RentzilaContacts_title__SxcO7';
-    readonly copyright = '[data-testid="copyright"]';
-    readonly infoEmail = '[href="mailto:info@rentzila.com.ua"]';
-
-    readonly consultationSection = 'section.Layouts_consultation__JUU1R';
-    readonly oderConsultation = 'section.Layouts_consultation__JUU1R [type="submit"]';
-    readonly consultationSectionNameField = '[placeholder="Ім\'я"]';
-    readonly consultationSectionPhoneNumberField = '[placeholder="Номер телефону"]';
-    readonly consultationErrorMessages = 'div [role="alert"]';
+    readonly specialEquipmentItems = '[data-testid="specialEquipment"] [class*=RentzilaProposes_proposes_list] > *';
+    readonly specialEquipmentItemsNames = '[data-testid="specialEquipment"] [class*=RentzilaProposes_proposes_list] > * [class*=RentzilaProposes_name]';
 
     async scrollToServicesSection(): Promise<void> {
         const servicesSectionElement = $(this.servicesSection);

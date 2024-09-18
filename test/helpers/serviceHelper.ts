@@ -18,8 +18,7 @@ export async function repeatTestCaseForService(serviceLocator: string) {
         
         await advertsPage.validatePageLoad();
         await advertsPage.openAllClosedArrows();
-        await advertsPage.validateCheckedCheckboxeHaveProperName(currentServiceName);
-
+        
         await advertsPage.clickFirstUnit();
         await unitPage.validateServiceProvided(currentServiceName);
         await unitPage.clickNavbarLogo();

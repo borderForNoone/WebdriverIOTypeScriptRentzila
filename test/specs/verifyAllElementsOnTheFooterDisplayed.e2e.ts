@@ -10,11 +10,11 @@ xdescribe('id:C214 - Verify that all elements on the footer are displayed and al
     it('1. Scroll down to the footer', async () => {
         await homePage.scrollToFooter();
         await expect(await homePage.isFooterDisplayed()).toBe(true);
-        await expect(await $(homePage.rentzilaLogo).isClickable()).toBe(false);
+        await expect(await $(homePage.rentzilaFooterLogo).isClickable()).toBe(false);
     });
 
     it('2. Check that ""Про нас"" label is displayed on the footer.', async () => {
-        await expect(await $(homePage.eboutUsLable).isDisplayed()).toBe(true);
+        await expect(await $(homePage.aboutUsLable).isDisplayed()).toBe(true);
     });
 
     it('3. Check that ""Політика конфіденційності"" link is displayed on the footer.', async () => {
@@ -34,7 +34,7 @@ xdescribe('id:C214 - Verify that all elements on the footer are displayed and al
     });
 
     it('7. Check that ""Оголошення"" link is displayed on the footer.', async () => {
-        await expect(await $(homePage.products).isDisplayed()).toBe(true);
+        await expect(await $(homePage.productsLink).isDisplayed()).toBe(true);
     });
 
     it('8. Check that ""Тендери"" link is displayed on the footer.', async () => {
@@ -46,7 +46,7 @@ xdescribe('id:C214 - Verify that all elements on the footer are displayed and al
     });
 
     it('10. Check that the Rentzila logo is displayed on the footer.', async () => {
-        await expect(await $(homePage.rentzilaLogo).isDisplayed()).toBe(true);
+        await expect(await $(homePage.rentzilaFooterLogo).isDisplayed()).toBe(true);
     });
 
     it('11. Check that the ""Усі права захищені"" label is displayed on the footer.', async () => {
@@ -83,7 +83,7 @@ xdescribe('id:C214 - Verify that all elements on the footer are displayed and al
 
     it('15. Scroll down to the footer and click on the ""Оголошення"" link.', async () => {
         await termsConditionsPage.scrollToFooter();
-        await $(termsConditionsPage.products).click();
+        await $(termsConditionsPage.productsLink).click();
         
         await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/products/');
 
@@ -117,6 +117,6 @@ xdescribe('id:C214 - Verify that all elements on the footer are displayed and al
     });
 
     it('19. Click on the ""info@rentzila.com.ua"" email on the footer.', async () => {
-        await $(homePage.infoEmail).click();
+        expect(await $(homePage.infoEmail).getAttribute('href')).toBe('mailto:info@rentzila.com.ua');
     });
 });

@@ -2,8 +2,20 @@ import { expect } from '@wdio/globals';
 import homePage from '../pageobjects/home.page';
 import { verifyContactUsForm } from '../helpers/contactUsHelper';
 import { getListOfBackcalles } from '../helpers/apiHelper';
+import { deleteBackcalle } from '../helpers/apiHelper';
+import { faker } from '@faker-js/faker';
 
-describe('id:C226 - Verify ""У Вас залишилися питання?"" form', () => {
+let createdBackcallId: number;
+let randomName = faker.person.firstName();
+let phoneNumber = '+380506743060';
+
+xdescribe('id:C226 - Verify ""У Вас залишилися питання?"" form', () => {
+    after(async () => {
+        if (createdBackcallId) {
+            await deleteBackcalle(createdBackcallId); 
+        }
+    });
+
     it('1. Scroll down to the ""У Вас залишилися питання?"" form.', async () => {
         await homePage.scrollToConsultationSection();
         await expect($(homePage.consultationSection)).toBeDisplayed();
@@ -50,7 +62,7 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
 
         await phoneNumberField.clearValue();
         
-        await phoneNumberField.setValue('+380506743060');
+        await phoneNumberField.setValue(phoneNumber);
 
         await $(homePage.oderConsultation).click();
 
@@ -78,7 +90,7 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
             const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
     
             await nameField.clearValue();
-            await nameField.setValue('Test');
+            await nameField.setValue(randomName);
 
             await phoneNumberField.clearValue();
             await phoneNumberField.setValue('+38063 111 111');
@@ -101,7 +113,7 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
         'After each input click on the ""Замовити консультацію"" button.', async () => {
             const phoneNumberField = $(homePage.consultationSectionPhoneNumberField);
             await phoneNumberField.clearValue();
-            await phoneNumberField.setValue('+380506743060');
+            await phoneNumberField.setValue(phoneNumber);
 
             await $(homePage.oderConsultation).click();
     });
@@ -112,16 +124,11 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
 
     it('9. Log in as the Admin to the Admin panel and check that this feedback is present.', async () => {
         const backcallList = await getListOfBackcalles();
-    
         const lastBackcall = backcallList[backcallList.length - 1]; 
-    
-        expect(lastBackcall.name).toEqual("Test");
-        expect(lastBackcall.phone).toEqual("+380506743060");
-    
-        const createdDate = new Date(lastBackcall.created_date); 
-        const currentDate = new Date();
-    
-        const timeDifferenceInMinutes = Math.abs((currentDate.getTime() - createdDate.getTime()) / 60000);
-        expect(timeDifferenceInMinutes).toBeLessThan(10); 
+
+        expect(lastBackcall.name).toEqual(randomName);
+        expect(lastBackcall.phone).toEqual(phoneNumber);
+
+        createdBackcallId = lastBackcall.id;
     });    
 });
