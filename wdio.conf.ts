@@ -9,6 +9,8 @@ export const config: Options.Testrunner = {
     before: async function (capabilities, specs) {
         await browser.url('/');
         await browser.maximizeWindow(); 
+
+        require('dotenv').config();
     },
 
     specs: [
@@ -22,21 +24,30 @@ export const config: Options.Testrunner = {
     maxInstances: 10,
 
     capabilities: [{
-        browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
+        browserName: 'chrome', 
         'goog:chromeOptions': {
             args: ['headless', 'disable-gpu'],
         },
         acceptInsecureCerts: true,
     }],
 
+    reporters: [
+        'spec', 
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
+        }]
+    ],
+
     logLevel: 'info',
 
     bail: 0,
     
-    baseUrl: 'https://dev.rentzila.com.ua/',
-    waitforTimeout: 12000,
+    baseUrl: process.env.BASE_URL,
+    waitforTimeout: 10000,
 
-    connectionRetryTimeout: 120000,
+    connectionRetryTimeout: 60000,
  
     connectionRetryCount: 3,
     
