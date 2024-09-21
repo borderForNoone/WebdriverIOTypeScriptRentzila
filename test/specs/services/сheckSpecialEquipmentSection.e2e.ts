@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals';
-import homePage from '../pageobjects/home.page';
-import advertsPage from '../pageobjects/adverts.page';
-import unitPage from '../pageobjects/unit.page';
-import { repeatTestCaseForspecialEquipment } from '../helpers/serviceHelper';
+import homePage from '../../pageobjects/home.page';
+import advertsPage from '../../pageobjects/adverts.page';
+import unitPage from '../../pageobjects/unit.page';
+import { repeatTestCaseForspecialEquipment } from '../../helpers/serviceHelper';
 
 let specialEquipmentItemsNames: string[];
 let firstSpecialEquipmentItemName: string;

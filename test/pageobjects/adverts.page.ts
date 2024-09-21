@@ -14,7 +14,9 @@ class AdvertsPage extends Page {
     readonly relevantCategoriesUnits = '[data-testid="thirdCategoryLabel"]';
     readonly relevantCategoriesUnitsNames = '[data-testid="thirdCategoryLabel"] p';
 
-    readonly searchInput = '[data-testid="searchInput"]';
+    get searchInput() {
+        return $('[data-testid="searchInput"]');
+    }
 
     async validateFiltersAndUnitOneSpecialEquipment(firstSpecialEquipmentItemName: string) {
         const arrows = $$(this.unclickedCategoriesArrows);

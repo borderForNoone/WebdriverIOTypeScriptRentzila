@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals'
-import homePage from '../pageobjects/home.page';
-import advertsPage from '../pageobjects/adverts.page';
-import unitPage from '../pageobjects/unit.page';
-import { repeatTestCaseForService } from '../helpers/serviceHelper';
+import homePage from '../../pageobjects/home.page';
+import advertsPage from '../../pageobjects/adverts.page';
+import unitPage from '../../pageobjects/unit.page';
+import { repeatTestCaseForService } from '../../helpers/serviceHelper';
 
 let serviceNames: string[];
 let firstItemName: string;
@@ -11,7 +11,7 @@ describe('id:C212 - Checking "Послуги" section on the main page', () => {
     it('1. Scroll to the ""Послуги"" section and check if the ""Популярні"" tab and 7 services below the ""Послуги"" label are displayed.', async () => {
         await homePage.scrollToServicesSection();
         await homePage.validateServicesSection();
-        console.log(await homePage.getAllItemNames());
+        await homePage.getAllItemNames();
         serviceNames = await homePage.getAllItemNames();
 
         firstItemName = await homePage.getFirstItemName();
@@ -20,7 +20,7 @@ describe('id:C212 - Checking "Послуги" section on the main page', () => {
 
     it('2. Click on the first service below the ""Послуги"" label.', async () => {
         await advertsPage.validatePageLoad();
-        console.log(await advertsPage.getAllUnitsNames());
+        await advertsPage.getAllUnitsNames();
         await advertsPage.validateFiltersAndUnits(serviceNames, firstItemName);
     });
 

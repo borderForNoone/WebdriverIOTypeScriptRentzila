@@ -1,7 +1,10 @@
 import Page from './page';
+import { errorMessages } from '../constants/errorMessages';
 
 class HomePage extends Page {
-    readonly header = "h1[class*=HeroSection_title]";
+    get header() {
+        return $('h1[class*=HeroSection_title]');
+    }
 
     readonly serviceItemsNames = '[data-testid="services"] [class*=RentzilaProposes_proposes_list] > * [class*=RentzilaProposes_name]';
     readonly serviceItems = '[data-testid="services"] [class*=RentzilaProposes_proposes_list] > *';
@@ -20,8 +23,7 @@ class HomePage extends Page {
     readonly specialEquipmentItemsNames = '[data-testid="specialEquipment"] [class*=RentzilaProposes_proposes_list] > * [class*=RentzilaProposes_name]';
 
     async scrollToServicesSection(): Promise<void> {
-        const servicesSectionElement = $(this.servicesSection);
-        await servicesSectionElement.scrollIntoView();
+        await $(this.servicesSection).scrollIntoView();
     }
 
     async scrollToSpecialEquipmentSection(): Promise<void> {
@@ -90,7 +92,7 @@ class HomePage extends Page {
     }
 
     async scrollToConsultationSection(): Promise<void> {
-        await $(this.consultationSection).scrollIntoView();
+        await this.consultationSection.scrollIntoView();
     }
 
     async isFooterDisplayed(): Promise<boolean> {
@@ -99,6 +101,20 @@ class HomePage extends Page {
 
     async clickServiceTab(serviceTabLocator: string) {
         await $(serviceTabLocator).click();
+    }
+
+    async clickOkInDialogPopUp() {
+        await browser.waitUntil(async () => await browser.isAlertOpen(), {});
+        let alertText = await browser.getAlertText();
+        await expect(alertText).toEqual("Ви успішно відправили заявку");
+        await browser.acceptAlert();
+    }
+
+    async verifyContactUsForm() {
+        expect($(this.consultationSectionNameField)).not.toHaveAttr('class', /ConsultationForm_error/);
+        expect($(this.consultationSectionPhoneNumberField)).toHaveAttr('class', /ConsultationForm_error/);
+    
+        expect(this.consultationErrorMessagesList[1]).toHaveText(errorMessages.phoneValidationError);
     }
 }
 

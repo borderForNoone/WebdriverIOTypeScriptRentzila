@@ -1,63 +1,69 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-let adminAccessToken: string | null = null;
+class ApiService {
+    private adminAccessToken: string | null = null;
+    private readonly axiosInstance: AxiosInstance;
+    private readonly apiUrl: string = `${process.env.BASE_URL}api`;
 
-export async function createAdminAccessToken() {
-    const url = 'https://dev.rentzila.com.ua/api/auth/jwt/create/';
-
-    const credentials = {
-        email: process.env.ADMIN_USERNAME,
-        password: process.env.ADMIN_PASSWORD
-    };
-
-    try {
-        const response = await axios.post(url, credentials);
-
-        adminAccessToken = response.data.access;
-        return adminAccessToken;
-    } catch (error) {
-        return error;
-    }
-}
-
-export async function getListOfBackcalles() {
-    const url = 'https://dev.rentzila.com.ua/api/backcall/';
-
-    if (!adminAccessToken) {
-        await createAdminAccessToken();
-    }
-
-    try {
-        const response = await axios.get(url, {
-            headers: {
-                Authorization: `Bearer ${adminAccessToken}`
-            }
+    constructor() {
+        this.axiosInstance = axios.create({
+            baseURL: this.apiUrl,
         });
+    }
 
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching backcall list:', error);
-        throw error;
+    private async createAdminAccessToken() {
+        const url = '/auth/jwt/create/';
+        const credentials = {
+            email: process.env.ADMIN_USERNAME,
+            password: process.env.ADMIN_PASSWORD
+        };
+
+        try {
+            const response = await this.axiosInstance.post(url, credentials);
+            this.adminAccessToken = response.data.access;
+        } catch (error) {
+            console.error('Error creating admin access token:', error);
+            throw error;
+        }
+    }
+
+    private async authenticate() {
+        if (!this.adminAccessToken) {
+            await this.createAdminAccessToken();
+        }
+    }
+
+    public async getListOfBackcalles() {
+        await this.authenticate();
+
+        try {
+            const response = await this.axiosInstance.get('/backcall/', {
+                headers: {
+                    Authorization: `Bearer ${this.adminAccessToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching backcall list:', error);
+            throw error;
+        }
+    }
+
+    public async deleteBackcalle(id: number) {
+        await this.authenticate();
+
+        try {
+            const response = await this.axiosInstance.delete(`/backcall/${id}/`, {
+                headers: {
+                    Authorization: `Bearer ${this.adminAccessToken}`
+                }
+            });
+            return { status: response.status, data: response.data };
+        } catch (error) {
+            console.error(`Error deleting backcall with id ${id}:`, error);
+            throw error;
+        }
     }
 }
 
-export async function deleteBackcalle(id: Number) {
-    const url = `https://dev.rentzila.com.ua/api/backcall/${id}/`;
-
-    if (!adminAccessToken) {
-        await createAdminAccessToken();
-    }
-
-    try {
-        const response = await axios.delete(url, {
-            headers: {
-                Authorization: `Bearer ${adminAccessToken}`
-            }
-        });
-
-        return { status: response.status, data: response.data };
-    } catch (error) {
-        console.error('Error fetching backcall list:', error);
-        throw error;
-    }
-}
+export default new ApiService();

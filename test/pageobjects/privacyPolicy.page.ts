@@ -1,7 +1,9 @@
 import Page from './page';
 
 class PrivacyPolicyPage extends Page {
-    readonly title = 'div h1[class*=PrivacyPolicy_title]';
+    get title() {
+        return $('div h1[class*=PrivacyPolicy_title]')
+    }
 
     async scrollToFooter(): Promise<void> {
         await $(this.footer).scrollIntoView();
