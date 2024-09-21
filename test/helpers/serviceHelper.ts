@@ -13,8 +13,7 @@ export async function repeatTestCaseForService(serviceLocator: string) {
         await homePage.validateServicesSection();
 
         const currentServiceName = serviceNames[i];
-        const serviceItems = $$(homePage.serviceItems);
-        await serviceItems[i].click();
+        await homePage.secviceItemClickByIndex(i);
         
         await advertsPage.validatePageLoad();
         await advertsPage.openAllClosedArrows();
@@ -34,8 +33,7 @@ export async function repeatTestCaseForspecialEquipment(serviceLocator: string) 
         await homePage.clickServiceTab(serviceLocator);
 
         const currentServiceName = serviceNames[i];
-        const specialEquipmentItems = $$(homePage.specialEquipmentItems);
-        await specialEquipmentItems[i].click();
+        await homePage.specialEquipmentItemClickByIndex(i);
         
         await advertsPage.validatePageLoad();
         await advertsPage.openAllClosedArrows();

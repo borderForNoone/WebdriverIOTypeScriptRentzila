@@ -9,6 +9,8 @@ export const config: Options.Testrunner = {
     before: async function (capabilities, specs) {
         await browser.url('/');
         await browser.maximizeWindow(); 
+
+        require('dotenv').config();
     },
 
     specs: [
@@ -33,8 +35,8 @@ export const config: Options.Testrunner = {
 
     bail: 0,
     
-    baseUrl: 'https://dev.rentzila.com.ua/',
-    waitforTimeout: 12000,
+    baseUrl: process.env.BASE_URL,
+    waitforTimeout: 10000,
 
     connectionRetryTimeout: 120000,
  
