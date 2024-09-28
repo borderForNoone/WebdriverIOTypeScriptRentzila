@@ -2,7 +2,7 @@ import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
 
-require('dotenv').config();
+const tabNames = ['основна інформація', 'фотографії', 'послуги', 'вартість', 'контакти'];
 
 describe('id:C294 - Verify body title and tab titles', () => {
     before(async () => {
@@ -18,19 +18,19 @@ describe('id:C294 - Verify body title and tab titles', () => {
 
     it('1. Check that body title is visible and have valid text.', async () => {
         await expect(profilePage.createUnitTitle).toBeDisplayed();
-        await expect(await profilePage.createUnitTitle.getText()).toEqual('Створити оголошення');
+        await expect(profilePage.createUnitTitle).toHaveText('Створити оголошення');
     });
 
-    xit('2. Check tab titles to be visible, have valid label number and text. ""1 Основна інформація"" tab should be active, all others should be faded.', async () => {
-        await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
-        
-        await homePage.submitButton.click();
+    it('2. Check tab titles to be visible, have valid label number and text. ""1 Основна інформація"" tab should be active, all others should be faded.', async () => {
+        for(let i = 0; i < tabNames.length; i++) {
+            await expect(profilePage.tabTitles[i]).toHaveText(tabNames[i]);
+            await expect(profilePage.tabNumbers[i]).toHaveText(`${++i}`);
+        }
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
-        await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailField).not.toHaveAttr('class', /CustomReactHookInput_error_input/);
-        await expect(homePage.passwordField).toHaveAttr('class', /CustomReactHookInput_error_input/);
-        await expect(homePage.passwordFieldErrorMessage).toBeDisplayed();
+        await expect(profilePage.tabNumbers[0]).toHaveAttr('class', /CustomLabel_labelActive/);
+        for(let i = 1; i < tabNames.length; i++) {
+            await expect(profilePage.tabNumbers[i]).not.toHaveAttr('class', /CustomLabel_labelActive/);
+        }
     });
 });
 

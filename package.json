@@ -6,16 +6,21 @@
     "tests": "wdio run ./wdio.conf.ts",
     "headed": "wdio run ./wdio.conf.headed.ts"
   },
-  "keywords": ["webdriverio", "typescript"],
+  "keywords": [
+    "webdriverio",
+    "typescript"
+  ],
   "author": "DenysKulikov",
   "license": "ISC",
   "description": "webdriverio typescript project",
   "devDependencies": {
+    "@faker-js/faker": "^9.0.1",
     "@wdio/cli": "^9.0.9",
     "@wdio/local-runner": "^9.0.9",
     "@wdio/mocha-framework": "^9.0.8",
-    "@faker-js/faker": "^9.0.1",
+    "@wdio/spec-reporter": "^9.1.0",
     "axios": "^1.7.7",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "wdio-mochawesome-reporter": "^6.1.1"
   }
 }

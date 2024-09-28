@@ -111,7 +111,7 @@ describe('id:C226 - Verify ""У Вас залишилися питання?"" fo
         browser.on('dialog', (dialog) => {
             expect(dialog.message()).toEqual('TEXT');
             dialog.accept();
-        })
+        });
     });
 
     it('9. Log in as the Admin to the Admin panel and check that this feedback is present.', async () => {

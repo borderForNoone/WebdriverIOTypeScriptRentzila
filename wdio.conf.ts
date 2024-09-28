@@ -8,7 +8,7 @@ export const config: Options.Testrunner = {
 
     before: async function (capabilities, specs) {
         await browser.url('/');
-        await browser.maximizeWindow(); 
+        await browser.setWindowSize(1920, 1080);
 
         require('dotenv').config();
     },
@@ -48,4 +48,17 @@ export const config: Options.Testrunner = {
         ui: 'bdd',
         timeout: 150000 
     },
+
+    reporters: [
+        'spec',
+        ['mochawesome', {
+            outputDir: './mochawesome-reports',  // Директорія для збереження звітів
+            mochawesomeOpts: {
+                reportDir: 'mochawesome-report',
+                reportFilename: 'wdio-mochawesome', // Ім'я файлу звіту
+                html: true,  // Генерація HTML звіту
+                json: true   // Генерація JSON звіту
+            }
+        }]
+    ],
 }
