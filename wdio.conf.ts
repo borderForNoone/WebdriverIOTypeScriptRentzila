@@ -1,4 +1,5 @@
 import type { Options } from '@wdio/types';
+import { join } from 'path';
 
 require('dotenv').config();
 

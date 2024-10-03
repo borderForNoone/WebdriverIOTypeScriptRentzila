@@ -184,6 +184,50 @@ class ProfilePage extends Page {
     get telegramCrossButton() {
         return $('[data-testid="completeTenderRectangle"] [data-testid="crossIcon"]');
     }
+
+    get imageContainers() {
+        return $$('[data-testid="imageBlock"]');
+    }
+
+    get deleteImageIcons() {
+        return $$('[data-testid="deleteImage"]');
+    }
+
+    get imageInput() {
+        return $('[data-testid="input_ImagesUnitFlow"]');
+    }
+
+    get addImagesDiv() {
+        return $('div[data-testid="ImagesUnitFlow"]');
+    }
+
+    get popUpWarningText() {
+        return $('[data-testid="errorPopup"]');
+    }
+
+    get popUpCloseIcon() {
+        return $('[data-testid="closeIcon"]');
+    }
+
+    get saveBtn() {
+        return $('[class*="NotValidImagePopup"] button');
+    }
+
+    get prevButton() {
+        return $('[data-testid="prevButton"]');
+    }
+
+    get imageDivClueText() {
+        return $('[data-testid="description"]');
+    }
+
+    get servisesBodyTabContainer() {
+        return $('[class*="CreateEditFlowLayout_container"]');
+    }
+
+    get imageUploadTitle() {
+        return $('[class*="ImagesUnitFlow_paragraph"]');
+    }
 }
 
 export default new ProfilePage();

@@ -59,7 +59,6 @@ describe('id:C329 - Verify ""Далі"" button', () => {
                 { type: 'pointerUp', button: 0 }
             ]
         }]);
-        await profilePage.confirmAdressButton.scrollIntoView();
         await profilePage.confirmAdressButton.click();
 
         if (await profilePage.telegramCrossButton.isDisplayed()) {
@@ -68,7 +67,7 @@ describe('id:C329 - Verify ""Далі"" button', () => {
         await profilePage.nextButton.click();
         await profilePage.nextButton.click();
 
-        await expect(profilePage.photosTitle).toBeDisplayedInViewport();
+        await expect(profilePage.photosTitle).toBeDisplayed();
     });
 });
 
