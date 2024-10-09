@@ -3,17 +3,12 @@ import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
 import { faker } from '@faker-js/faker';
 import path = require('path');
-import fs = require('fs');
 
-const imageDir = path.join(__dirname, '../../images/validImages'); 
-let files: string[] = [];
+const filePath = path.join(__dirname, '../../images/image.jpg');
+const service = 'as';
 
-describe('id:C593 - Verify image uploading', () => {
+describe('id:C489 - Verify ""Далі"" button', () => {
     before(async () => {
-        files = fs.readdirSync(imageDir)
-            .filter(file => ['.jpg', '.jpeg', '.png'].includes(path.extname(file).toLowerCase())) 
-            .map(file => path.join(imageDir, file)); 
-
         await browser.url('/create-unit/');
         await homePage.emailField.waitForDisplayed({ timeout: 5000 });
         await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
@@ -60,23 +55,10 @@ describe('id:C593 - Verify image uploading', () => {
 
         await browser.pause(1000);
         await profilePage.nextButton.click();
-    });
 
-    it('1. Check image upload title to be visible, have valid text and "*" after it. Check image upload clue line to be visible and have valid text.', async () => {
-        await expect(profilePage.imageUploadTitle).toBeDisplayed();
-        await expect(profilePage.imageUploadTitle).toHaveText(/Фото технічного засобу \*/);
-        await expect(profilePage.imageDivClueText).toHaveText(/Додайте в оголошення від 1 до 12 фото технічного засобу розміром до 20 МВ у форматі .jpg, .jpeg, .png. Перше фото буде основним./);
-    });
-
-    it('2. Click on element of image uploading panel and check reaction. Repeat with all elements.', async () => {
-        for(let i = 0; i < 4; i++) {
-            await expect(profilePage.imageContainers[i]).toBeClickable();
-        }
-    });
-
-    it('3. Click on element of image uploading panel and upload up to 16 valid format images(.jpg, .png, .jpeg less than 20Mb).', async () => {
         const input = profilePage.imageInput;
-
+        const remoteFilePath = await browser.uploadFile(filePath);
+    
         await browser.execute(() => {
             const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
             if (element) {
@@ -85,21 +67,31 @@ describe('id:C593 - Verify image uploading', () => {
                 element.style.opacity = '1'; 
             }
         });
-        
-        await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
-        await input.waitForDisplayed({ timeout: 5000 });
-        await input.waitForEnabled({ timeout: 5000 });
+    
+        await input.setValue(remoteFilePath); 
+        await profilePage.nextButton.click();
 
-        const remoteFilePaths = [];
-        for (const file of files) {
-            const remoteFilePath = await browser.uploadFile(file);
-            remoteFilePaths.push(remoteFilePath);
+        await profilePage.serviceInput.setValue(service);
+        await profilePage.servicesToChoose[0].click();
+        await profilePage.nextButton.click();
+    });
+
+    it('Verify ""Далі"" button', async () => {
+        await expect(profilePage.nextButton).toHaveText(/Далі/);
+        await profilePage.nextButton.click();
+        await expect(profilePage.minimumOrderCostField).toHaveAttr('class', /inputWrapperError/);
+        await expect(profilePage.minimumOrderCostInputErrorMessage).toHaveText(/Це поле обов’язкове/);
+
+        const randomEightDigitNumber = Math.floor(10000000 + Math.random() * 90000000);
+        await profilePage.addPriceInput.setValue(randomEightDigitNumber);
+        const inputValue = await profilePage.addPriceInput.getValue();
+        await expect(inputValue).toEqual(`${randomEightDigitNumber}`); 
+        await profilePage.nextButton.click();
+        for(let i = 0; i < 5; i++) {
+            if(i === 4) {
+                continue;
+            }
+            await expect(profilePage.tabNumbers[i]).not.toHaveAttr('class', /CustomLabel_labelActive/);
         }
-
-        for (const remoteFilePath of remoteFilePaths) {
-            await input.setValue(remoteFilePath); 
-        }
-
-        await expect(profilePage.imageContainers[0]).toHaveText(/Головне/);
     });
 });
