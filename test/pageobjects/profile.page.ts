@@ -228,6 +228,110 @@ class ProfilePage extends Page {
     get imageUploadTitle() {
         return $('[class*="ImagesUnitFlow_paragraph"]');
     }
+
+    get serviceInput() {
+        return $('input[placeholder*="Наприклад"]');
+    }
+
+    get servicesToChoose() {
+        return $$('[data-testid="searchItem-servicesUnitFlow"]');
+    }
+
+    get paymentMethodTitle() {
+        return $$('[class*="PricesUnitFlow_paragraph"]')[0];
+    }
+
+    get paymentMethodDropdown() {
+        return $('[data-testid="div_CustomSelect"]');
+    }
+
+    get dropdownVariants() {
+        return $$('[data-testid="span-customSelect"]');
+    }
+
+    get minimumOrderCostTitle() {
+        return $$('[class*="PricesUnitFlow_paragraph"]')[1];
+    }
+
+    get minimumOrderCostInput() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[0];
+    }
+
+    get minimumOrderCostField() {
+        return $$('[data-testid="input_wrapper_RowUnitPrice"]')[0];
+    }
+
+    get minimumOrderCostInputErrorMessage() {
+        return $('[class*="PricesUnitFlow_unitPriceWrapper"] [class*="error"]');
+    }
+
+    get currencyField() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[1];
+    }
+
+    get priceForServiceTitle() {
+        return $('[data-testid="div_servicePrices_PricesUnitFlow"]');
+    }
+
+    get clueLine() {
+        return $('[class*="PricesUnitFlow_description"]');
+    }
+
+    get addPriceButton() {
+        return $('[data-testid="addPriceButton_ServicePrice"]');
+    }
+
+    get addPriceField() {
+        return $('[data-testid="div_ServicePrice"]');
+    }
+
+    get addPriceInput() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[0];
+    }
+
+    get addPriceInputField() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[2];
+    }
+
+    get addPriceInputErrorMessage() {
+        return $('[data-testid="input_wrapper_RowUnitPrice"] ~ [class*="error"]');
+    }
+
+    get addPriceSelectField() {
+        return $$('[class*="CustomSelect_value"]')[1];
+    }
+
+    get addPriceDigits() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[3];
+    }
+
+    get perUnitField() {
+        return $$('[data-testid="div_CustomSelect"]')[1];
+    }
+
+    get perUnitArrow() {
+        return $$('[data-testid="div_CustomSelect"] svg')[1];
+    }
+
+    get perUnitDropdownVariants() {
+        return $$('[data-testid="item-customSelect"]');
+    }
+
+    get workingShiftField() {
+        return $$('[data-testid="div_CustomSelect"]')[2];
+    }
+
+    get workingShiftArrow() {
+        return $$('[data-testid="div_CustomSelect"] svg')[2];
+    }
+
+    get workingShiftDropdownVariants() {
+        return $$('[data-testid="span-customSelect"]');
+    }
+
+    get deleteButton() {
+        return $('[data-testid="div_removePrice_RowUnitPrice"]');
+    }
 }
 
 export default new ProfilePage();
