@@ -30,46 +30,16 @@ jobs:
           echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> $GITHUB_ENV
           echo "ADMIN_PHONE_NUMBER=${{ secrets.ADMIN_PHONE_NUMBER }}" >> $GITHUB_ENV
           echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
-
+      - name: Run WebdriverIO tests
+        run: npm run tests
+        
       - name: Generate Allure report
         if: always()
-        run: |
-          if [ -d "allure-results" ]; then
-            npm run allure:generate
-          else
-            echo "allure-results directory not found"
-            exit 1
-          fi
+        run: npm run allure:generate
 
-      - name: Upload Allure report as artifact
+      - name: Upload Allure report as GitHub artifact
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: allure-report
-
-      - name: Deploy Allure Report to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Set up git
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          
-          # Check out the gh-pages branch
-          git fetch origin gh-pages || git checkout --orphan gh-pages
-          git worktree add gh-pages gh-pages
-          cd gh-pages
-          
-          # Clear the gh-pages branch content
-          rm -rf ./*
-          
-          # Copy the Allure report to the gh-pages branch
-          cp -R ../allure-report/* .
-          
-          # Commit and push the report to the gh-pages branch
-          git add .
-          git commit -m "Update Allure report"
-          git push origin gh-pages
-
-    
