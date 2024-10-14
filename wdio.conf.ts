@@ -6,9 +6,9 @@ export const config: Options.Testrunner = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
 
-    before: async function (capabilities, specs) {
+    before: async function () {
         await browser.url('/');
-        await browser.setWindowSize(1920, 1080);
+        await browser.maximizeWindow(); 
 
         require('dotenv').config();
     },
@@ -16,15 +16,13 @@ export const config: Options.Testrunner = {
     specs: [
         './test/specs/**/*.ts'
     ],
-  
-    exclude: [
-      
-    ],
  
-    maxInstances: 10,
+    maxInstances: 5,
+    maxInstancesPerCapability: 5,
 
     capabilities: [{
-        browserName: 'chrome', // or "firefox", "microsoftedge", "safari"
+        maxInstances: 5,
+        browserName: 'chrome', 
         'goog:chromeOptions': {
             args: ['headless', 'disable-gpu'],
         },
@@ -38,7 +36,7 @@ export const config: Options.Testrunner = {
     baseUrl: process.env.BASE_URL,
     waitforTimeout: 10000,
 
-    connectionRetryTimeout: 120000,
+    connectionRetryTimeout: 60000,
  
     connectionRetryCount: 3,
     
@@ -52,13 +50,18 @@ export const config: Options.Testrunner = {
     reporters: [
         'spec',
         ['mochawesome', {
-            outputDir: './mochawesome-reports',  // Директорія для збереження звітів
+            outputDir: './mochawesome-reports',  
             mochawesomeOpts: {
                 reportDir: 'mochawesome-report',
-                reportFilename: 'wdio-mochawesome', // Ім'я файлу звіту
-                html: true,  // Генерація HTML звіту
-                json: true   // Генерація JSON звіту
+                reportFilename: 'wdio-mochawesome', 
+                html: true,  
+                json: true   
             }
+        }],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
         }]
     ],
 }
