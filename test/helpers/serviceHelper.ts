@@ -22,7 +22,7 @@ export async function repeatTestCaseForService(serviceLocator: string) {
         
         await advertsPage.clickFirstUnit();
         await unitPage.validateServiceProvided(currentServiceName);
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
     }
 }
 
@@ -42,6 +42,6 @@ export async function repeatTestCaseForspecialEquipment(serviceLocator: string) 
         
         await advertsPage.clickFirstUnit();
         await unitPage.validateServiceProvided(currentServiceName);
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
     }
 }

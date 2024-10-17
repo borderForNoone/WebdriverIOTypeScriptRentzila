@@ -6,7 +6,7 @@ export const config: Options.Testrunner = {
     runner: 'local',
     tsConfigPath: './tsconfig.json',
 
-    before: async function (capabilities, specs) {
+    before: async function () {
         await browser.url('/');
         await browser.maximizeWindow(); 
 
@@ -16,29 +16,18 @@ export const config: Options.Testrunner = {
     specs: [
         './test/specs/**/*.ts'
     ],
-  
-    exclude: [
-      
-    ],
  
-    maxInstances: 10,
+    maxInstances: 5,
+    maxInstancesPerCapability: 5,
 
     capabilities: [{
+        maxInstances: 5,
         browserName: 'chrome', 
         'goog:chromeOptions': {
             args: ['headless', 'disable-gpu'],
         },
         acceptInsecureCerts: true,
     }],
-
-    reporters: [
-        'spec', 
-        ['allure', {
-            outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: false,
-        }]
-    ],
 
     logLevel: 'info',
 
@@ -57,4 +46,22 @@ export const config: Options.Testrunner = {
         ui: 'bdd',
         timeout: 150000 
     },
+
+    reporters: [
+        'spec',
+        ['mochawesome', {
+            outputDir: './mochawesome-reports',  
+            mochawesomeOpts: {
+                reportDir: 'mochawesome-report',
+                reportFilename: 'wdio-mochawesome', 
+                html: true,  
+                json: true   
+            }
+        }],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
+        }]
+    ],
 }

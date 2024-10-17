@@ -4,7 +4,7 @@ import profilePage from '../../pageobjects/profile.page';
 
 describe('Authorization with valid phone and password', () => {
     it('id:C202 - Authorization with valid phone and password', async () => {
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
         await homePage.emailField.setValue(`${process.env.ADMIN_PHONE_NUMBER}`);
         await expect(homePage.emailField).not.toHaveAttr('class', /CustomReactHookInput_error_input/);
     
@@ -27,7 +27,8 @@ describe('Authorization with valid phone and password', () => {
         await homePage.userIcon.click();
         await profilePage.logoutDropdownMenu.click();
         
-        await homePage.clickLoginButton();
+        await homePage.loginButton.waitForDisplayed({ timeout: 20000 });
+        await homePage.loginButton.click();
         await homePage.emailField.setValue(`${process.env.ADMIN_PHONE_NUMBER}`);
         await expect(homePage.emailField).not.toHaveAttr('class', /CustomReactHookInput_error_input/);
 

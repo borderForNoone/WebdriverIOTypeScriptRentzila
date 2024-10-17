@@ -17,7 +17,7 @@ const invalidPhoneNumbers = [
 
 describe('Authorization with invalid phone', () => {
     it('id:C207 - Authorization with invalid phone', async () => {
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
 
         await homePage.passwordField.setValue(`${process.env.ADMIN_PASSWORD}`);
 

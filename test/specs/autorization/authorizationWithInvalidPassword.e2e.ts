@@ -5,8 +5,9 @@ const textToVerify = 'Пароль повинен містити як мінім
 
 describe('Authorization with invalid password', () => {
     it('id:C577 - Authorization with invalid password', async () => {
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
 
+        await homePage.passwordField.waitForDisplayed({ timeout: 20000 });
         await homePage.passwordField.setValue('Testuser10  ');
 
         await homePage.submitButton.click();

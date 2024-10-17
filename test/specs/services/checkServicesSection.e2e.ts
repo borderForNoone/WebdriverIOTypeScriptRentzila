@@ -25,7 +25,7 @@ describe('Checking "Послуги" section on the main page', () => {
         await unitPage.validatePageLoad();
         await unitPage.validateServiceProvided(firstItemName);
     
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
         await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
     
         const serviceCategories = [

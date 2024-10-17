@@ -25,7 +25,7 @@ xdescribe('Checking the Спецтехніка section and related functionality
 
         await unitPage.validateServiceProvided("Посів технічних та зернових культур");
     
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
 
         await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
     
