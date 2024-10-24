@@ -1,5 +1,6 @@
 import Page from './page';
 import { errorMessages } from '../constants/errorMessages';
+import { endpoints } from '../constants/endpoints';
 
 class HomePage extends Page {
     get header() {
@@ -142,8 +143,8 @@ class HomePage extends Page {
     }
 
     async verifyContactUsForm() {
-        expect($(this.consultationSectionNameField)).not.toHaveAttr('class', /ConsultationForm_error/);
-        expect($(this.consultationSectionPhoneNumberField)).toHaveAttr('class', /ConsultationForm_error/);
+        expect($(this.consultationSectionNameField)).not.toHaveAttr('class', endpoints.consultationFormError);
+        expect($(this.consultationSectionPhoneNumberField)).toHaveAttr('class', endpoints.consultationFormError);
     
         expect(this.consultationErrorMessagesList[1]).toHaveText(errorMessages.phoneValidationError);
     }

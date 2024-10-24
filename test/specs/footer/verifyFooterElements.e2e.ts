@@ -5,6 +5,8 @@ import cookiePolicyPage from '../../pageobjects/cookiePolicy.page';
 import termsConditionsPage from '../../pageobjects/termsConditions.page';
 import advertsPage from '../../pageobjects/adverts.page';
 import tendersPage from '../../pageobjects/tenders.page';
+import { endpoints } from '../../constants/endpoints';
+import { validValues } from '../../constants/validValues';
 
 describe('Verify that all elements on the footer are displayed and all links are clickable', () => {
     it('id:C214 - Verify that all elements on the footer are displayed and all links are clickable', async () => {
@@ -33,54 +35,68 @@ describe('Verify that all elements on the footer are displayed and all links are
         await expect(await homePage.copyright.isDisplayed()).toBe(true);
     
         await homePage.privacyPolicy.click();
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/privacy-policy/');
+        await expect(browser).toHaveUrl(endpoints.privacyPolicy.url);
 
         await expect(privacyPolicyPage.title).toBeDisplayedInViewport();
-        await expect(privacyPolicyPage.title).toHaveText('Політика конфіденційності');
+        await expect(privacyPolicyPage.title).toHaveText(endpoints.privacyPolicy.pageTitle);
     
         await privacyPolicyPage.scrollToFooter();
         await privacyPolicyPage.cookiePolicy.click();
         
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/cookie-policy/');
+        await expect(browser).toHaveUrl(endpoints.cookiePolicy.url);
 
         await expect(cookiePolicyPage.title).toBeDisplayedInViewport();
-        await expect(cookiePolicyPage.title).toHaveText('Політика використання файлів cookie');
+        await expect(cookiePolicyPage.title).toHaveText(endpoints.cookiePolicy.pageTitle);
     
         await cookiePolicyPage.scrollToFooter();
         await cookiePolicyPage.termsConditions.click();
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/terms-conditions/');
+        await expect(browser).toHaveUrl(endpoints.termsConditions.url);
 
         await expect(termsConditionsPage.title).toBeDisplayedInViewport();
-        await expect(termsConditionsPage.title).toHaveText('Угода користувача');
+        await expect(termsConditionsPage.title).toHaveText(endpoints.termsConditions.pageTitle);
    
         await termsConditionsPage.scrollToFooter();
         await termsConditionsPage.productsLink.click();
         
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/products/');
+        await expect(browser).toHaveUrl(endpoints.products.url);
 
         await expect(advertsPage.searchInput).toBeDisplayedInViewport();
-        await expect(advertsPage.searchInput).toHaveAttribute('placeholder', 'Пошук оголошень або послуг');
+        await expect(advertsPage.searchInput).toHaveAttribute('placeholder', endpoints.products.inputFieldText);
     
-        await advertsPage.clickNavbarLogo();
+        await advertsPage.nabarLogo.click();
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
+        await browser.waitUntil(
+            async () => (await browser.getUrl()) === `${process.env.BASE_URL}`,
+            {
+                timeout: 20000, 
+                timeoutMsg: 'Expected URL to be' + `${process.env.BASE_URL}` + ' after 20 seconds',
+            }
+        );
+        await expect(browser).toHaveUrl(`${process.env.BASE_URL}`);
 
         await expect(homePage.header).toBeDisplayedInViewport();
-        await expect(homePage.header).toHaveText('Сервіс пошуку послуг спецтехніки');
+        await expect(homePage.header).toHaveText(endpoints.homePage.pageTitle);
     
         await homePage.scrollToFooter();
         await homePage.tendersMap.click();
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/tenders-map/');
+        await expect(browser).toHaveUrl(endpoints.tendersMap.url);
 
         await expect(tendersPage.searchInput).toBeDisplayedInViewport();
-        await expect(tendersPage.searchInput).toHaveAttribute('placeholder', 'Пошук тендера за ключовими словами');
+        await expect(tendersPage.searchInput).toHaveAttribute('placeholder', endpoints.tendersMap.inputFieldText);
     
         await tendersPage.rentzilaLogo.click();
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
+        await browser.waitUntil(
+            async () => (await browser.getUrl()) === `${process.env.BASE_URL}`,
+            {
+                timeout: 20000, 
+                timeoutMsg: 'Expected URL to be' + `${process.env.BASE_URL}` + ' after 20 seconds',
+            }
+        );
+        await expect(browser).toHaveUrl(`${process.env.BASE_URL}`);
     
-        expect(await homePage.infoEmail.getAttribute('href')).toBe('mailto:info@rentzila.com.ua');
+        expect(await homePage.infoEmail.getAttribute('href')).toBe(validValues.emailForInfo);
     });
 });

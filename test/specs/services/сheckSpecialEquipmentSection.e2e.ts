@@ -2,32 +2,29 @@ import { expect } from '@wdio/globals';
 import homePage from '../../pageobjects/home.page';
 import advertsPage from '../../pageobjects/adverts.page';
 import unitPage from '../../pageobjects/unit.page';
-import { repeatTestCaseForspecialEquipment } from '../../helpers/serviceHelper';
+import { validateSpecialEquipment } from '../../helpers/serviceHelper';
+import { validValues } from '../../constants/validValues';
 
 let specialEquipmentItemsNames: string[];
-let firstSpecialEquipmentItemName: string;
 
 xdescribe('Checking the Спецтехніка section and related functionality', () => {
     it('id:C213 - Checking the Спецтехніка section and related functionality', async () => {
         await homePage.validateSpecialEquipmentSection();
         
         specialEquipmentItemsNames = await homePage.getAllSpecialEquipmentItemsNames();
-        console.log(specialEquipmentItemsNames);
-
-        firstSpecialEquipmentItemName = await homePage.getFirstSpecialEquipmentItemName();
 
         await homePage.clickFirstSpecialEquipmentItem();
         await advertsPage.validatePageLoad();
 
-        await advertsPage.validateFiltersAndUnitOneSpecialEquipment("посівна та садильна техніка");
+        await advertsPage.validateFiltersAndUnitOneSpecialEquipment(validValues.specialEquipmentName);
    
         await advertsPage.clickFirstUnit();
 
-        await unitPage.validateServiceProvided("Посів технічних та зернових культур");
+        await unitPage.validateServiceProvided(validValues.serviceName);
     
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
 
-        await expect(browser).toHaveUrl('https://dev.rentzila.com.ua/');
+        await expect(browser).toHaveUrl(`${process.env.BASE_URL}`);
     
         const specialEquipmentCategories = [
             homePage.specialEquipmentPopularTab,     
@@ -37,7 +34,7 @@ xdescribe('Checking the Спецтехніка section and related functionality
         ];
 
         for (const specialEquipmentLocator of specialEquipmentCategories) {
-            await repeatTestCaseForspecialEquipment(specialEquipmentLocator);
+            await validateSpecialEquipment(specialEquipmentLocator);
         }
     });
 });

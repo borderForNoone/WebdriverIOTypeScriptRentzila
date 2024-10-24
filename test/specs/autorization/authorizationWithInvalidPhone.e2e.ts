@@ -1,5 +1,6 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
+import { errorMessages } from '../../constants/errorMessages';
 
 const validPhoneNumber = `${process.env.ADMIN_PASSWORD}`;
 
@@ -17,7 +18,7 @@ const invalidPhoneNumbers = [
 
 describe('Authorization with invalid phone', () => {
     it('id:C207 - Authorization with invalid phone', async () => {
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
 
         await homePage.passwordField.setValue(`${process.env.ADMIN_PASSWORD}`);
 
@@ -29,7 +30,7 @@ describe('Authorization with invalid phone', () => {
             await homePage.submitButton.click();
             
             await expect(homePage.popupWindow).toBeDisplayed();
-            await expect(await homePage.emailFieldErrorMessage.getText()).toEqual('Неправильний формат email або номера телефону')
+            await expect(await homePage.emailFieldErrorMessage.getText()).toEqual(errorMessages.loginErrorMessage);
         }
     });
 });

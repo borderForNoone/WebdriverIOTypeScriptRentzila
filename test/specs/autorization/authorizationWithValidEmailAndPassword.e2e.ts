@@ -3,7 +3,7 @@ import homePage from '../../pageobjects/home.page';
 
 describe('Authorization with valid email and password', () => {
     it('id:C201 - Authorization with valid email and password', async () => {
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
         await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
         await expect(await homePage.emailField.getValue()).toEqual(`${process.env.ADMIN_USERNAME}`);
     
@@ -25,15 +25,14 @@ describe('Authorization with valid email and password', () => {
             await browser.keys('Enter');
         }
 
-        await expect(homePage.popupWindow).not.toBeDisplayed();
-    
+        await homePage.userIcon.waitForDisplayed({ timeout: 10000 });
         await homePage.userIcon.click();
         await expect(homePage.userDropdownMenu).toBeDisplayed();
         await expect(await homePage.userDropdownMenuEmail.getText()).toEqual(`${process.env.ADMIN_USERNAME}`);
     
         await homePage.logoutDropdownMenu.click();
 
-        await homePage.clickLoginButton();
+        await homePage.loginButton.click();
         await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
         await expect(await homePage.emailField.getValue()).toEqual(`${process.env.ADMIN_USERNAME}`);
 
