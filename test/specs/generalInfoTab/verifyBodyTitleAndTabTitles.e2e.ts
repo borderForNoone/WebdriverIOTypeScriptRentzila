@@ -6,7 +6,7 @@ import { validValues } from '../../constants/validValues';
 
 describe('Verify body title and tab titles', () => {
     before(async () => {
-        await browser.url('/create-unit/');
+        await browser.url(endpoints.createUnitPage.url);
         await homePage.emailField.waitForDisplayed({ timeout: 5000 });
         await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
 

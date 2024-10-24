@@ -10,7 +10,6 @@ let firstItemName: string;
 describe('Checking "Послуги" section on the main page', () => {
     it('id:C212 - Checking "Послуги" section on the main page', async () => {
         await homePage.validateServicesSection();
-        await homePage.getAllItemNames();
         serviceNames = await homePage.getAllItemNames();
 
         firstItemName = await homePage.getFirstItemName();

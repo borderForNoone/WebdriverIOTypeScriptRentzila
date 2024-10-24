@@ -59,18 +59,18 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-          # Check out the gh-pages branch
-          git fetch origin gh-pages || git checkout --orphan gh-pages
-          git worktree add gh-pages gh-pages
-          cd gh-pages
+          # Check out the ghPages branch
+          git fetch origin ghPages || git checkout --orphan ghPages
+          git worktree add ghPages ghPages
+          cd ghPages
           
-          # Clear the gh-pages branch content
+          # Clear the ghPages branch content
           rm -rf ./*
           
-          # Copy the Allure report to the gh-pages branch
+          # Copy the Allure report to the ghPages branch
           cp -R ../allure-report/* .
           
-          # Commit and push the report to the gh-pages branch
+          # Commit and push the report to the ghPages branch
           git add .
           git commit -m "Update Allure report"
-          git push origin gh-pages
+          git push origin ghPages
