@@ -29,3 +29,21 @@ Running a Single Test by Filename
 ```
 npm run test:single -- --spec ./test/specs/example.spec.ts
 ```
+
+Allure Report
+For reporting used Allure Report - Automation Test Reporting Tool
+Learn more about Allure Report at Allure
+
+To generate allure report:
+
+```
+npm run allure:generateReport
+```
+To open allure report:
+```
+npm run allure:openReport
+```
+
+Report on CI:
+
+https://borderfornoone.github.io/WebdriverIOTypeScriptRentzila/
