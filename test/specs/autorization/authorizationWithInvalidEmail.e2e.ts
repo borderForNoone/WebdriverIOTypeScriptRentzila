@@ -1,80 +1,68 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
+import { invalidValues } from '../../constants/invalidValues';
+import { errorMessages } from '../../constants/errorMessages';
 
-require('dotenv').config();
+describe('Authorization with invalid email', () => {
+    it('id:C576 - Authorization with invalid email', async () => {
+        await homePage.loginButton.click();
 
-describe('id:C576 - Authorization with invalid email', () => {
-    it('1. Enter invalid email with spaces', async () => {
-        await homePage.clickLoginButton();
-
-        await homePage.emailField.setValue('testuser  rentzila@gmail.com');
+        await homePage.emailField.waitForDisplayed({ timeout: 20000 });
+        await expect(homePage.emailField).toBeDisplayed();
+        await homePage.emailField.setValue(invalidValues.emailWithSpace);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
     
-    it('2. Enter invalid email written in Cyrillic', async () => {
-        await homePage.emailField.setValue('еуіегіуккутеяшдф');
+        await homePage.emailField.setValue(invalidValues.cyrillicAlphabet);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('3. Enter invalid email written without "@"', async () => {
-        await homePage.emailField.setValue('testuserrentzilagmail.com');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+   
+        await homePage.emailField.setValue(invalidValues.emailWrongGmailFormat);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('4. Enter invalid email written written without "."', async () => {
-        await homePage.emailField.setValue('testuserrentzila@gmailcom');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+   
+        await homePage.emailField.setValue(invalidValues.gmailWithoutDot);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('5. Enter invalid email written without ".com"', async () => {
-        await homePage.emailField.setValue('testuserrentzila@gmail');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+    
+        await homePage.emailField.setValue(invalidValues.gmailWithoutCom);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('6. Enter invalid email written without "gmail"', async () => {
-        await homePage.emailField.setValue('testuserrentzila@.com');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+    
+        await homePage.emailField.setValue(invalidValues.gmailWithoutGmail);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('7. Enter invalid email written without "@gmail.com"', async () => {
-        await homePage.emailField.setValue('testuserrentzila');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+    
+        await homePage.emailField.setValue(invalidValues.latinText);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
-    });
-
-    it('8. Enter invalid email written with 2 "@"', async () => {
-        await homePage.emailField.setValue('testuserrentzila@@gmail.com');
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
+    
+        await homePage.emailField.setValue(invalidValues.gmailWithExtraSymbol);
 
         await homePage.submitButton.click();
             
         await expect(homePage.popupWindow).toBeDisplayed();
-        await expect(homePage.emailFieldErrorMessage).toHaveText('Неправильний формат email або номера телефону')
+        await expect(homePage.emailFieldErrorMessage).toHaveText(errorMessages.loginErrorMessage)
     });
 });

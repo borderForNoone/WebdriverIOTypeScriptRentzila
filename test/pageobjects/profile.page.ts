@@ -157,6 +157,10 @@ class ProfilePage extends Page {
         return $('#map');
     }
 
+    get mapPopup() {
+        return $('[data-testid="div-mapPopup"]');
+    }
+
     get mapPopupTitle() {
         return $('[class*="MapPopup_title"]');
     }
@@ -183,6 +187,10 @@ class ProfilePage extends Page {
 
     get telegramCrossButton() {
         return $('[data-testid="completeTenderRectangle"] [data-testid="crossIcon"]');
+    }
+
+    get images() {
+        return $$('[data-testid="imageBlock"] img');
     }
 
     get imageContainers() {

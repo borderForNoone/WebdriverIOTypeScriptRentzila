@@ -1,10 +1,14 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
+import { faker } from '@faker-js/faker';
+import { invalidValues } from '../../constants/invalidValues';
+import { validValues } from '../../constants/validValues';
+import { endpoints } from '../../constants/endpoints';
 
-describe('id:C318 - Verify description section', () => {
+describe('Verify description section', () => {
     before(async () => {
-        await browser.url('/create-unit/');
+        await browser.url(endpoints.createUnitPage.url);
         await homePage.emailField.waitForDisplayed({ timeout: 5000 });
         await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
 
@@ -14,22 +18,19 @@ describe('id:C318 - Verify description section', () => {
         await homePage.submitButton.click();
     });
 
-    it('1. Check title to be visible, have valid text. Check that textarea to be clickable and clear.', async () => {
+    it('id:C318 - Verify description section', async () => {
         const title = profilePage.descriptionTitle; 
         await expect(title).toBeDisplayedInViewport();
-        await expect(title).toHaveText('Детальний опис');
+        await expect(title).toHaveText(validValues.descriptionTitle);
 
         await expect(profilePage.descriptionCustomTextArea).toBeDisplayed();
         await expect(profilePage.descriptionCustomTextArea).toBeClickable();
         await expect(profilePage.descriptionCustomTextArea).toHaveText(''); 
-    });
-
-    it('2. Type data: <>{};^ (special symbols) and check field content. Repeat actions with copy-paste.', async () => {
-        const specialSymbolsInput = '<>{};^';
+   
         const textArea = profilePage.descriptionCustomTextArea;
 
         await textArea.clearValue();
-        await textArea.setValue(specialSymbolsInput);
+        await textArea.setValue(invalidValues.specialSymbols);
 
         await expect(await textArea.getValue()).toEqual('');
 
@@ -37,22 +38,24 @@ describe('id:C318 - Verify description section', () => {
 
         await browser.execute((text) => {
             navigator.clipboard.writeText(text);
-        }, specialSymbolsInput);
+        }, invalidValues.specialSymbols);
 
         await textArea.click();
         await browser.keys(['Control', 'v']); 
 
         await expect(await textArea.getValue()).toEqual('');
-    });
+    
+        const longInput = faker.string.alpha({ length: 9001 });
 
-    it('3. Type 9001 symbols into textarea and check limit.', async () => {
-        const longInput = 'a'.repeat(9001); 
-        const textArea = profilePage.descriptionCustomTextArea;
+        await profilePage.descriptionCustomTextArea.clearValue();
+        await browser.execute((text) => {
+            navigator.clipboard.writeText(text);
+        }, longInput);
 
-        await textArea.clearValue();
-        await textArea.setValue(longInput);
+        await profilePage.descriptionCustomTextArea.click();
+        await browser.keys(['Control', 'v']); 
 
-        const textAreaValue = await textArea.getValue();
+        const textAreaValue = await profilePage.descriptionCustomTextArea.getValue();
         expect(textAreaValue.length).toBeLessThanOrEqual(9000);
     });
 });

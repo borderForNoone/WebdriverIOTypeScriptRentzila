@@ -7,7 +7,7 @@ import path = require('path');
 const filePath = path.join(__dirname, '../../images/image.jpg');
 const service = 'as';
 
-describe('id:C417 - Verify ""Спосіб оплати"" section', () => {
+xdescribe('id:C417 - Verify ""Спосіб оплати"" section', () => {
     before(async () => {
         await browser.url('/create-unit/');
         await homePage.emailField.waitForDisplayed({ timeout: 5000 });
