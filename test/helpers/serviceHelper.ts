@@ -2,7 +2,7 @@ import homePage from '../pageobjects/home.page';
 import advertsPage from '../pageobjects/adverts.page';
 import unitPage from '../pageobjects/unit.page';
 
-export async function repeatTestCaseForService(serviceLocator: string) { 
+export async function validateServices(serviceLocator: string) { 
     if (await homePage.telegramCrossButton.isDisplayed()) {
         await homePage.telegramCrossButton.click();
     } 
@@ -22,11 +22,11 @@ export async function repeatTestCaseForService(serviceLocator: string) {
         
         await advertsPage.clickFirstUnit();
         await unitPage.validateServiceProvided(currentServiceName);
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
     }
 }
 
-export async function repeatTestCaseForspecialEquipment(serviceLocator: string) { 
+export async function validateSpecialEquipment(serviceLocator: string) { 
     await homePage.clickServiceTab(serviceLocator);
 
     const serviceNames = await homePage.getAllSpecialEquipmentItemsNames();
@@ -42,6 +42,6 @@ export async function repeatTestCaseForspecialEquipment(serviceLocator: string) 
         
         await advertsPage.clickFirstUnit();
         await unitPage.validateServiceProvided(currentServiceName);
-        await unitPage.clickNavbarLogo();
+        await unitPage.nabarLogo.click();
     }
 }
