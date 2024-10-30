@@ -1,6 +1,6 @@
 import Page from './page';
-import { errorMessages } from '../constants/errorMessages';
-import { endpoints } from '../constants/endpoints';
+import { errorMessages } from '../../constants/errorMessages';
+import { endpoints } from '../../constants/endpoints';
 
 class HomePage extends Page {
     get header() {

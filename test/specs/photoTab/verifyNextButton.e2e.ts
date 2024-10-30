@@ -1,10 +1,10 @@
 import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
-import { errorMessages } from '../../constants/errorMessages';
-import { createUnitFillingInFirstSection } from '../../helpers/profileHelper';
-import { makeInputForImagesVisible } from '../../helpers/profileHelper';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { errorMessages } from '../../../constants/errorMessages';
+import { createUnitFillingInFirstSection } from '../../../helpers/profileHelper';
+import { makeInputForImagesVisible } from '../../../helpers/profileHelper';
 import path = require('path');
 
 const filePath = path.join(__dirname, '../../../images/image.jpg');

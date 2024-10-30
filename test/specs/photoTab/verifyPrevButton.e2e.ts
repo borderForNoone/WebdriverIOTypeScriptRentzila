@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
-import { createUnitFillingInFirstSection } from '../../helpers/profileHelper';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { createUnitFillingInFirstSection } from '../../../helpers/profileHelper';
 
 describe('Verify "Назад" button', () => {
     before(async () => {

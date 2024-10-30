@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
-import { validValues } from '../../constants/validValues';
-import { createUnitFillingInFirstSection } from '../../helpers/profileHelper';
-import { makeInputForImagesVisible } from '../../helpers/profileHelper';
+import { validValues } from '../../../constants/validValues';
+import { createUnitFillingInFirstSection } from '../../../helpers/profileHelper';
+import { makeInputForImagesVisible } from '../../../helpers/profileHelper';
 import path = require('path');
 import fs = require('fs');
 

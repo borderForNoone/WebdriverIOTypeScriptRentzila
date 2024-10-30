@@ -1,6 +1,6 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
-import { endpoints } from '../../constants/endpoints';
+import { endpoints } from '../../../constants/endpoints';
 
 describe('Authorization with empty fields', () => {
     it('id:C200 - Authorization with empty fields', async () => {

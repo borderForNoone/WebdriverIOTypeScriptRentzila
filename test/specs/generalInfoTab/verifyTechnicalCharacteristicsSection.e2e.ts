@@ -2,9 +2,9 @@ import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
 import { faker } from '@faker-js/faker';
-import { endpoints } from '../../constants/endpoints';  
-import { invalidValues } from '../../constants/invalidValues';
-import { validValues } from '../../constants/validValues';
+import { endpoints } from '../../../constants/endpoints';  
+import { invalidValues } from '../../../constants/invalidValues';
+import { validValues } from '../../../constants/validValues';
 
 describe('Verify technical characteristics section', () => {
     before(async () => {

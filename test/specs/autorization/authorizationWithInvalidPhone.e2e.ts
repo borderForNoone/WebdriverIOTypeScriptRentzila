@@ -1,6 +1,6 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
-import { errorMessages } from '../../constants/errorMessages';
+import { errorMessages } from '../../../constants/errorMessages';
 
 const validPhoneNumber = `${process.env.ADMIN_PASSWORD}`;
 

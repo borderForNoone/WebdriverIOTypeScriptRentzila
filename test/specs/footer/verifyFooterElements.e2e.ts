@@ -5,8 +5,8 @@ import cookiePolicyPage from '../../pageobjects/cookiePolicy.page';
 import termsConditionsPage from '../../pageobjects/termsConditions.page';
 import advertsPage from '../../pageobjects/adverts.page';
 import tendersPage from '../../pageobjects/tenders.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
 
 describe('Verify that all elements on the footer are displayed and all links are clickable', () => {
     it('id:C214 - Verify that all elements on the footer are displayed and all links are clickable', async () => {

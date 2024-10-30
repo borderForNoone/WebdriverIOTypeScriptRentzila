@@ -2,16 +2,12 @@ import { expect } from '@wdio/globals';
 import homePage from '../../pageobjects/home.page';
 import advertsPage from '../../pageobjects/adverts.page';
 import unitPage from '../../pageobjects/unit.page';
-import { validateSpecialEquipment } from '../../helpers/serviceHelper';
-import { validValues } from '../../constants/validValues';
-
-let specialEquipmentItemsNames: string[];
+import { validateSpecialEquipment } from '../../../helpers/serviceHelper';
+import { validValues } from '../../../constants/validValues';
 
 xdescribe('Checking the Спецтехніка section and related functionality', () => {
     it('id:C213 - Checking the Спецтехніка section and related functionality', async () => {
         await homePage.validateSpecialEquipmentSection();
-        
-        specialEquipmentItemsNames = await homePage.getAllSpecialEquipmentItemsNames();
 
         await homePage.clickFirstSpecialEquipmentItem();
         await advertsPage.validatePageLoad();

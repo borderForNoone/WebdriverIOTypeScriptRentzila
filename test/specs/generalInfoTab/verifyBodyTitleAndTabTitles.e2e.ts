@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
 
 describe('Verify body title and tab titles', () => {
     before(async () => {

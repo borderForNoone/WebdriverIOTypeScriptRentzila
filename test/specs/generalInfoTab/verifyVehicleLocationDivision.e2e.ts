@@ -1,10 +1,10 @@
 import { expect } from '@wdio/globals';
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
-import { errorMessages } from '../../constants/errorMessages';
-import { selectLocationOnMap } from '../../helpers/profileHelper';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { errorMessages } from '../../../constants/errorMessages';
+import { selectLocationOnMap } from '../../../helpers/profileHelper';
 
 describe('Verify vehicle location division', () => {
     before(async () => {

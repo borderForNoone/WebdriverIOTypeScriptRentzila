@@ -1,8 +1,8 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { validValues } from '../../constants/validValues';
-import { endpoints } from '../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { endpoints } from '../../../constants/endpoints';
 
 describe('Verify category (Категорія) section', () => {
     before(async () => {
@@ -56,20 +56,15 @@ describe('Verify category (Категорія) section', () => {
         await profilePage.categorySelectText.click();
         
         for (let i = 0; i < await profilePage.firstColumnElements.length; i++) {
-            const firstColumnElement = profilePage.firstColumnElements[i];
-    
-            await firstColumnElement.click();
+            await profilePage.firstColumnElements[i].click();
         
             for (let j = 0; j < await profilePage.secondColumnElements.length; j++) {
-                const secondColumnElement = profilePage.secondColumnElements[j];
-        
-                await secondColumnElement.click();
+                await profilePage.secondColumnElements[j].click();
         
                 for (let k = 0; k < await profilePage.thirdColumnElements.length; k++) {
-                    const thirdColumnElement = profilePage.thirdColumnElements[k];
-                    let expectedText = await thirdColumnElement.getText();
+                    let expectedText = await profilePage.thirdColumnElements[k].getText();
         
-                    await thirdColumnElement.click();
+                    await profilePage.thirdColumnElements[k].click();
         
                     let actualText = await profilePage.categorySelectText.getText();
                     await expect(actualText.toLowerCase()).toEqual(expectedText.toLowerCase());;

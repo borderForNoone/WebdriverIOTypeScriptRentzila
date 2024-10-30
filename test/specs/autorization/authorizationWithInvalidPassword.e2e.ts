@@ -1,7 +1,7 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
-import { errorMessages } from '../../constants/errorMessages';
-import { invalidPasswords } from '../../constants/invalidPasswords';
+import { errorMessages } from '../../../constants/errorMessages';
+import { invalidPasswords } from '../../../constants/invalidPasswords';
 
 describe('Authorization with invalid password', () => {
     it('id:C577 - Authorization with invalid password', async () => {

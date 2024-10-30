@@ -1,5 +1,5 @@
-import homePage from '../pageobjects/home.page';
-import profilePage from '../pageobjects/profile.page';
+import homePage from '../test/pageobjects/home.page';
+import profilePage from '../test/pageobjects/profile.page';
 import { endpoints } from '../constants/endpoints';
 import { validValues } from '../constants/validValues';
 import { faker } from '@faker-js/faker';

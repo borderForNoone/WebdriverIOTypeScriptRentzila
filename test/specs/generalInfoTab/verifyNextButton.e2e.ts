@@ -2,9 +2,9 @@ import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
 import { faker } from '@faker-js/faker';  
-import { endpoints } from '../../constants/endpoints';  
-import { validValues } from '../../constants/validValues';
-import { selectLocationOnMap } from '../../helpers/profileHelper';
+import { endpoints } from '../../../constants/endpoints';  
+import { validValues } from '../../../constants/validValues';
+import { selectLocationOnMap } from '../../../helpers/profileHelper';
 
 describe('Verify "Далі" button', () => {
     before(async () => {

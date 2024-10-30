@@ -1,6 +1,6 @@
-import homePage from '../pageobjects/home.page';
-import advertsPage from '../pageobjects/adverts.page';
-import unitPage from '../pageobjects/unit.page';
+import homePage from '../test/pageobjects/home.page';
+import advertsPage from '../test/pageobjects/adverts.page';
+import unitPage from '../test/pageobjects/unit.page';
 
 export async function validateServices(serviceLocator: string) { 
     if (await homePage.telegramCrossButton.isDisplayed()) {

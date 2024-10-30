@@ -1,7 +1,7 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
+import { endpoints } from '../../../constants/endpoints';
 
 describe('Authorization with valid phone and password', () => {
     it('id:C202 - Authorization with valid phone and password', async () => {

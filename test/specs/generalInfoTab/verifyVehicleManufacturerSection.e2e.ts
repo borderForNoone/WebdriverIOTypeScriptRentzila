@@ -1,10 +1,10 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { validValues } from '../../constants/validValues';
-import { errorMessages } from '../../constants/errorMessages';
-import { invalidValues } from '../../constants/invalidValues';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { errorMessages } from '../../../constants/errorMessages';
+import { invalidValues } from '../../../constants/invalidValues';
 
 const validManufacturer = 'Abc';
 

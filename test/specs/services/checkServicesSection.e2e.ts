@@ -2,7 +2,7 @@ import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import advertsPage from '../../pageobjects/adverts.page';
 import unitPage from '../../pageobjects/unit.page';
-import { validateServices } from '../../helpers/serviceHelper';
+import { validateServices } from '../../../helpers/serviceHelper';
 
 let serviceNames: string[];
 let firstItemName: string;

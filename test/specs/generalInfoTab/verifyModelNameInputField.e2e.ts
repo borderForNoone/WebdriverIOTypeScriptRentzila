@@ -1,11 +1,11 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { endpoints } from '../../constants/endpoints';
-import { invalidValues } from '../../constants/invalidValues';
-import { validValues } from '../../constants/validValues';
-import { invalidModalNameInput } from '../../constants/invalidModalNameInput';
-import { errorMessages } from '../../constants/errorMessages';
+import { endpoints } from '../../../constants/endpoints';
+import { invalidValues } from '../../../constants/invalidValues';
+import { validValues } from '../../../constants/validValues';
+import { invalidModalNameInput } from '../../../constants/invalidModalNameInput';
+import { errorMessages } from '../../../constants/errorMessages';
 
 describe('Verify model name input field', () => {
     before(async () => {

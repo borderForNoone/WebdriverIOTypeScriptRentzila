@@ -1,11 +1,11 @@
 import { expect } from '@wdio/globals';
 import homePage from '../../pageobjects/home.page';
 import { faker } from '@faker-js/faker';
-import apiService from '../../api/rentzilla.api';
-import { endpoints } from '../../constants/endpoints';
-import { errorMessages } from "../../constants/errorMessages";
-import { invalidPhoneNumbers } from "../../constants/invalidPhoneNumbers";
-import { validValues } from '../../constants/validValues';
+import apiService from '../../../api/rentzilla.api';
+import { endpoints } from '../../../constants/endpoints';
+import { errorMessages } from "../../../constants/errorMessages";
+import { invalidPhoneNumbers } from "../../../constants/invalidPhoneNumbers";
+import { validValues } from '../../../constants/validValues';
 
 let createdBackcallId: number;
 let randomName = faker.person.firstName();
@@ -21,11 +21,9 @@ describe('Verify "У Вас залишилися питання?" form', () => {
         await expect(homePage.consultationSection).toBeDisplayed();
     
         await homePage.oderConsultation.click();
-        const consultationSectionNameFieldHasErrorClass = await homePage.consultationSectionNameField.getAttribute('class');
-        const consultationSectionPhoneNumberFieldHasErrorClass = await homePage.consultationSectionNameField.getAttribute('class');
-        
-        expect(consultationSectionNameFieldHasErrorClass).toHaveAttr('class', endpoints.consultationFormError);
-        expect(consultationSectionPhoneNumberFieldHasErrorClass).toHaveAttr('class', endpoints.consultationFormError);
+
+        expect(await homePage.consultationSectionNameField.getAttribute('class')).toHaveAttr('class', endpoints.consultationFormError);
+        expect(await homePage.consultationSectionPhoneNumberField.getAttribute('class')).toHaveAttr('class', endpoints.consultationFormError);
 
         expect(homePage.consultationErrorMessagesList[0]).toHaveText(errorMessages.emptyFieldMessage);
         expect(homePage.consultationErrorMessagesList[1]).toHaveText(errorMessages.emptyFieldMessage);
@@ -49,9 +47,7 @@ describe('Verify "У Вас залишилися питання?" form', () => {
 
         await homePage.oderConsultation.click();
 
-        const consultationSectionNameFieldHasErrorClass2 = await homePage.consultationSectionNameField.getAttribute('class');
-
-        expect(consultationSectionNameFieldHasErrorClass2).toHaveAttr('class', endpoints.consultationFormError);
+        expect(await homePage.consultationSectionNameField.getAttribute('class')).toHaveAttr('class', endpoints.consultationFormError);
 
         await homePage.consultationSectionNameField.clearValue();
         await homePage.consultationSectionNameField.setValue(randomName);

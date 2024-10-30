@@ -1,7 +1,7 @@
 import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
-import { validValues } from '../../constants/validValues';
-import { createUnitFillingInSectionsWithEightPhotos } from '../../helpers/profileHelper';
+import { validValues } from '../../../constants/validValues';
+import { createUnitFillingInSectionsWithEightPhotos } from '../../../helpers/profileHelper';
 
 describe('Verify image deleting', () => {
     before(async () => {
