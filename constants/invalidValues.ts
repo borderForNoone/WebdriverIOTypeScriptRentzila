@@ -13,5 +13,4 @@ export const invalidValues = {
     capitalCyrillic: 'АТЭК',
     firstCapitalCyrillic: 'Атэк',
     oneCapital: 'A',
-    
 };
