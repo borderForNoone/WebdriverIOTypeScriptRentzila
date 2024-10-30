@@ -53,7 +53,6 @@ xdescribe('id:C482 - Verify adding price for service', () => {
 
         await expect(expectedText).toEqual(await profilePage.vehicleLocationDivisionInput.getText());
 
-        await browser.pause(1000);
         await profilePage.nextButton.click();
 
         const input = profilePage.imageInput;

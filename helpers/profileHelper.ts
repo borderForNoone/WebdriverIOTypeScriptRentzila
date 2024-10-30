@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 import path = require('path');
 import fs = require('fs');
 
-const imageDir = path.join(__dirname, '../../images/validImages'); 
+const imageDir = path.join(__dirname, '../images/validImages'); 
 let files: string[] = [];
 
 export async function createUnitFillingInSectionsWithEightPhotos() {
@@ -15,8 +15,6 @@ export async function createUnitFillingInSectionsWithEightPhotos() {
         .map(file => path.join(imageDir, file));
 
     await createUnitFillingInFirstSection();
-
-    const input = profilePage.imageInput;
 
     await browser.execute(() => {
         const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
@@ -28,7 +26,7 @@ export async function createUnitFillingInSectionsWithEightPhotos() {
     });
 
     await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
-    await input.waitForEnabled({ timeout: 5000 });
+    await profilePage.imageInput.waitForEnabled({ timeout: 5000 });
 
     const remoteFilePaths = [];
     for (const file of files) {
@@ -37,7 +35,7 @@ export async function createUnitFillingInSectionsWithEightPhotos() {
     }
 
     for (let i = 0; i < 8; i++) {
-        await input.setValue(remoteFilePaths[i]);
+        await profilePage.imageInput.setValue(remoteFilePaths[i]);
     }
 }
 
@@ -48,8 +46,6 @@ export async function createUnitFillingInSectionsWithTwoPhotos() {
 
     await createUnitFillingInFirstSection();
 
-    const input = profilePage.imageInput;
-
     await browser.execute(() => {
         const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
         if (element) {
@@ -60,7 +56,7 @@ export async function createUnitFillingInSectionsWithTwoPhotos() {
     });
 
     await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
-    await input.waitForEnabled({ timeout: 5000 });
+    await profilePage.imageInput.waitForEnabled({ timeout: 5000 });
 
     const remoteFilePaths = [];
     for (const file of files) {
@@ -69,7 +65,7 @@ export async function createUnitFillingInSectionsWithTwoPhotos() {
     }
 
     for (let i = 0; i < 2; i++) {
-        await input.setValue(remoteFilePaths[i]);
+        await profilePage.imageInput.setValue(remoteFilePaths[i]);
     }
 }
 

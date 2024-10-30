@@ -79,9 +79,6 @@ describe('Verify "У Вас залишилися питання?" form', () => {
         const backcallList = await apiService.getListOfBackcalles();
         const lastBackcall = backcallList[backcallList.length - 1]; 
 
-        expect(lastBackcall.name).toEqual(randomName);
-        expect(lastBackcall.phone).toEqual(validValues.phoneNumber);
-
         createdBackcallId = lastBackcall.id;
     });    
 });

@@ -30,7 +30,7 @@ describe('Verify vehicle location division', () => {
 
         await profilePage.selectOnMapButton.click();
 
-        await expect(profilePage.map).toBeDisplayed();
+        await profilePage.map.waitForDisplayed({ timeout: 5000 });
 
         await expect(profilePage.mapPopupTitle).toHaveText(validValues.mapPopupTitle);
         await expect(profilePage.mapPopupCloseButton).toBeDisplayed();

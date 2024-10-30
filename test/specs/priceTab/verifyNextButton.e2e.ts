@@ -53,7 +53,6 @@ xdescribe('id:C489 - Verify ""Далі"" button', () => {
 
         await expect(expectedText).toEqual(await profilePage.vehicleLocationDivisionInput.getText());
 
-        await browser.pause(1000);
         await profilePage.nextButton.click();
 
         const input = profilePage.imageInput;
