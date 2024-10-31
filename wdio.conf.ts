@@ -8,7 +8,7 @@ export const config: Options.Testrunner = {
 
     before: async function () {
         await browser.url('/');
-        await browser.setWindowSize(1920, 1080);
+        await browser.maximizeWindow(); 
 
         require('dotenv').config();
     },
@@ -48,13 +48,18 @@ export const config: Options.Testrunner = {
     reporters: [
         'spec',
         ['mochawesome', {
-            outputDir: './mochawesome-reports', 
+            outputDir: './mochawesome-reports',  
             mochawesomeOpts: {
                 reportDir: 'mochawesome-report',
                 reportFilename: 'wdio-mochawesome', 
-                html: true, 
+                html: true,  
                 json: true   
             }
+        }],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
         }]
     ],
 }

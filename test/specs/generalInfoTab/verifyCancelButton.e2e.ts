@@ -1,10 +1,12 @@
 import { expect } from '@wdio/globals'
 import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
+import { validValues } from '../../../constants/validValues';
+import { endpoints } from '../../../constants/endpoints';
 
-describe('id:C326 - Verify ""Скасувати"" button', () => {
+describe('Verify "Скасувати" button', () => {
     before(async () => {
-        await browser.url('/create-unit/');
+        await browser.url(endpoints.createUnitPage.url);
         await homePage.emailField.waitForDisplayed({ timeout: 5000 });
         await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
 
@@ -14,16 +16,13 @@ describe('id:C326 - Verify ""Скасувати"" button', () => {
         await homePage.submitButton.click();
     });
 
-    it('1. Check button to have valid text.', async () => {
-        await expect(profilePage.canceledButton).toHaveText(/Скасувати/);
+    it('id:C326 - Verify "Скасувати" button', async () => {
+        await expect(profilePage.canceledButton).toHaveText(validValues.canceledButtonText);
 
-    });
-
-    it('2. Click on ""Скасувати"" button.', async () => {
         await profilePage.canceledButton.click();
 
         browser.on('dialog', (dialog) => {
-            expect(dialog.message()).toEqual('Внесені зміни, можливо, не буде збережено.');
+            expect(dialog.message()).toEqual(validValues.warnDialogText);
             dialog.accept();
         });
 

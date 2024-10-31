@@ -26,5 +26,5 @@
     "include": [
         "test",
         "wdio.conf.ts"
-    ]
+, "helpers", "constants"    ]
 }

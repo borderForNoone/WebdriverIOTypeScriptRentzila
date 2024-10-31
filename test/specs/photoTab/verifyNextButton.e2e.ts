@@ -1,107 +1,51 @@
 import { expect } from '@wdio/globals'
-import homePage from '../../pageobjects/home.page';
 import profilePage from '../../pageobjects/profile.page';
-import { faker } from '@faker-js/faker';
+import { endpoints } from '../../../constants/endpoints';
+import { validValues } from '../../../constants/validValues';
+import { errorMessages } from '../../../constants/errorMessages';
+import { createUnitFillingInFirstSection } from '../../../helpers/profileHelper';
+import { makeInputForImagesVisible } from '../../../helpers/profileHelper';
 import path = require('path');
 
-const filePath = path.join(__dirname, '../../images/image.jpg');
+const filePath = path.join(__dirname, '../../../images/image.jpg');
 
-describe('id:C393 - Verify ""Далі"" button', () => {
+describe('Verify "Далі" button', () => {
     before(async () => {
-        await browser.url('/create-unit/');
-        await homePage.emailField.waitForDisplayed({ timeout: 5000 });
-        await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
-
-        await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
-        await homePage.passwordField.setValue(`${process.env.ADMIN_PASSWORD}`);
-
-        await homePage.submitButton.click();
-
-        await profilePage.categoryField.click();
-        await profilePage.firstColumnElements[0].click();
-        await profilePage.secondColumnElements[0].click();
-        await profilePage.thirdColumnElements[0].click();
-
-        await profilePage.unitNameInputField.clearValue();
-        await profilePage.unitNameInputField.setValue(faker.string.alpha(10));
-
-        await profilePage.vehicleManufacturerSectionInput.clearValue();
-        await profilePage.vehicleManufacturerSectionInput.setValue('ABC');
-
-        await profilePage.dropdownOptions[0].click();
-
-        await profilePage.selectOnMapButton.click();
-        const { width, height } = await browser.getWindowRect();
-
-        const x = Math.floor(width / 2) - 20;
-        const y = Math.floor(height / 2);
-
-        await browser.performActions([{
-            type: 'pointer',
-            id: 'pointer1',
-            parameters: { pointerType: 'mouse' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: x, y: y },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pointerUp', button: 0 }
-            ]
-        }]);
-        const expectedText = await profilePage.popupAddress.getText();
-
-        await profilePage.confirmAdressButton.click();
-
-        await expect(expectedText).toEqual(await profilePage.vehicleLocationDivisionInput.getText());
-
-        await browser.pause(1000);
-        await profilePage.nextButton.click();
+        await createUnitFillingInFirstSection();
     });
 
-    it('1. Check [nextButton] button have valid text.', async () => {
-        await expect(profilePage.nextButton).toHaveText(/Далі/);
+    it('id:C393 - Verify "Далі" button', async () => {
+        await expect(profilePage.nextButton).toHaveText(validValues.photoTabNextButtonText);
 
-    });
-
-    it('2. Сlick on [nextButton] button without any uploaded images.', async () => {
         await profilePage.nextButton.click();
 
         await expect(profilePage.addImagesDiv).toBeDisplayed();
-        await expect(profilePage.imageDivClueText).toHaveAttr('class', /error/);
-    });
-
-    it('3. Upload valid image. Click on [nextButton] button.', async () => {
-        const input = profilePage.imageInput;
+        await expect(profilePage.imageDivClueText).toHaveAttr('class', errorMessages.profilePageImageDivClueText);
+    
         const remoteFilePath = await browser.uploadFile(filePath);
     
-        await browser.execute(() => {
-            const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
-            if (element) {
-                element.style.display = 'block';
-                element.style.visibility = 'visible'; 
-                element.style.opacity = '1'; 
-            }
-        });
+        await makeInputForImagesVisible();
         
         await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
-        await input.waitForDisplayed({ timeout: 5000 });
-        await input.waitForEnabled({ timeout: 5000 });
+        await profilePage.imageInput.waitForEnabled({ timeout: 5000 });
     
-        await input.setValue(remoteFilePath); 
+        await profilePage.imageInput.setValue(remoteFilePath); 
 
         await profilePage.nextButton.click();
 
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/Створити оголошення/);
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/основна інформація/);
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/фотографії/);
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/послуги/);
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/вартість/);
-        await expect(profilePage.servisesBodyTabContainer).toHaveText(/контакти/);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.firstServisesBodyTabContainerText);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.secondServisesBodyTabContainerText);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.thirdServisesBodyTabContainerText);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.fourthServisesBodyTabContainerText);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.fifthServisesBodyTabContainerText);
+        await expect(profilePage.servisesBodyTabContainer).toHaveText(validValues.sixthServisesBodyTabContainerText);
         
-        await expect(profilePage.tabNumbers[2]).toHaveAttr('class', /CustomLabel_labelActive/);
+        await expect(profilePage.tabNumbers[2]).toHaveAttr('class', endpoints.lableActive);
         for(let i = 0; i < 5; i++) {
             if(i === 2) {
                 continue;
             }
-            await expect(profilePage.tabNumbers[i]).not.toHaveAttr('class', /CustomLabel_labelActive/);
+            await expect(profilePage.tabNumbers[i]).not.toHaveAttr('class', endpoints.lableActive);
         }
     });
 });
