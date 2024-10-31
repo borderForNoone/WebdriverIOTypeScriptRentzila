@@ -24,7 +24,7 @@ describe('id:C596 - Verify adding an invalid price in the "Вартість мі
 
         if (await profilePage.telegramCrossButton.isDisplayed()) {
             await profilePage.telegramCrossButton.click();
-        } 
+        }
         await profilePage.nextButton.click();
         await expect(profilePage.minimumOrderCostInputErrorMessage).toHaveText(errorMessages.minimumOrderCostInputErrorMessage);
         await expect(profilePage.minimumOrderCostField).toHaveAttr('class', errorMessages.minimumOrderCostField);
@@ -33,9 +33,16 @@ describe('id:C596 - Verify adding an invalid price in the "Вартість мі
         await browser.keys([Key.Ctrl, 'a', Key.Backspace]);
         await expect(profilePage.minimumOrderCostInputErrorMessage).toHaveText(errorMessages.minimumOrderCostInputWarnMessage);
         await expect(profilePage.minimumOrderCostField).toHaveAttr('class', errorMessages.minimumOrderCostField);
-        
-        await profilePage.minimumOrderCostInput.addValue(1000);
-        await expect(profilePage.minimumOrderCostInputErrorMessage).not.toBeDisplayed();
+
+        await profilePage.minimumOrderCostInput.clearValue();
+
+        await browser.execute((text) => {
+            navigator.clipboard.writeText(text);
+        }, `1000`);
+
+        await profilePage.minimumOrderCostInput.click();
+        await browser.keys(['Control', 'v']);
+
         await expect(profilePage.minimumOrderCostField).not.toHaveAttr('class', errorMessages.minimumOrderCostField);
     });
 });

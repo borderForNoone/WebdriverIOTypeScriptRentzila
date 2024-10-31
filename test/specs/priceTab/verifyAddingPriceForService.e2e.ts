@@ -2,6 +2,7 @@ import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
 import { createUnitFillingInSectionsWithTwoPhotos } from '../../../helpers/profileHelper';
 import { validValues } from '../../../constants/validValues';
+import { invalidValues } from '../../../constants/invalidValues';
 
 describe('id:C482 - Verify adding price for service', () => {
     before(async () => {
@@ -41,8 +42,8 @@ describe('id:C482 - Verify adding price for service', () => {
 
         await expect(await profilePage.addPriceInput.getValue()).toMatch(regexDigits);
 
-        const dataWithSpaces = ['123 456', '123456 ']; 
-        const invalidData = [' ', 'abc', '!@#$%.,'];
+        const dataWithSpaces = invalidValues.dataWithSpaces; 
+        const invalidData = invalidValues.invalidData;
 
         for (let data of dataWithSpaces) {
             await profilePage.addPriceInput.clearValue();
@@ -102,7 +103,7 @@ describe('id:C482 - Verify adding price for service', () => {
 
         await expect(inputValue).toEqual(`${randomEightDigitNumber}`); 
 
-        await expect(profilePage.addPriceDigits).toHaveAttr('value', /UAH/);
+        await expect(profilePage.addPriceDigits).toHaveAttr('value', validValues.currencyFieldValue);
 
         await expect(profilePage.perUnitField).toHaveText(/година/);
         await expect(profilePage.perUnitArrow).toBeDisplayed();

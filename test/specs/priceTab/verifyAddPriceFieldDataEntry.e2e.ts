@@ -2,6 +2,7 @@ import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
 import { createUnitFillingInSectionsWithTwoPhotos } from '../../../helpers/profileHelper';
 import { validValues } from '../../../constants/validValues';
+import { invalidValues } from '../../../constants/invalidValues';
 
 describe('id:C638 - Verify the data entry in the "Вартість Ваших послуг *" price input', () => {
     before(async () => {
@@ -14,8 +15,8 @@ describe('id:C638 - Verify the data entry in the "Вартість Ваших п
     });
 
     it('Verify the data entry in the "Вартість Ваших послуг *" price input', async () => {
-        const dataWithSpaces = ['123 456', '123456 '];
-        const invalidData = [' ', 'abc', '!@#$%.,'];
+        const dataWithSpaces = invalidValues.dataWithSpaces; 
+        const invalidData = invalidValues.invalidData;
         await profilePage.addPriceButton.click();
         await expect(profilePage.addPriceInputField).toBeDisplayed();
 

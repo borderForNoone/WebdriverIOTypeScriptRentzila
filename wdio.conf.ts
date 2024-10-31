@@ -25,6 +25,7 @@ export const config: Options.Testrunner = {
             args: ['headless', 'disable-gpu'],
         },
         acceptInsecureCerts: true,
+        maxInstances: 5,
     }],
 
     logLevel: 'info',

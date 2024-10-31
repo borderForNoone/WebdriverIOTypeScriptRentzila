@@ -28,7 +28,7 @@ describe('id:C637 - Verify UI of the "Вартість Ваших послуг *
         await expect(profilePage.addPriceInput).toBeDisplayed();
         await expect(profilePage.addPriceSelectField).toBeDisplayed();
         await expect(profilePage.addPriceInputField).toHaveAttr('placeholder', /Наприклад, 1000/);
-        await expect(profilePage.addPriceDigits).toHaveAttr('value', /UAH/);
+        await expect(profilePage.addPriceDigits).toHaveAttr('value', validValues.currencyFieldValue);
         await expect(profilePage.perUnitField).toHaveText(/година/);
     });
 });

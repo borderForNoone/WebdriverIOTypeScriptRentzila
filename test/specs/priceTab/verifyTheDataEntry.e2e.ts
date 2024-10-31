@@ -2,6 +2,7 @@ import { expect } from '@wdio/globals'
 import profilePage from '../../pageobjects/profile.page';
 import { createUnitFillingInSectionsWithTwoPhotos } from '../../../helpers/profileHelper';
 import { validValues } from '../../../constants/validValues';
+import { invalidValues } from '../../../constants/invalidValues';
 
 describe('id:C636 - Verify the data entry in the "Вартість мінімального замовлення *" input', () => {
     before(async () => {
@@ -14,8 +15,8 @@ describe('id:C636 - Verify the data entry in the "Вартість мініма�
     });
 
     it('Verify adding an invalid price in the "Вартість мінімального замовлення *" input', async () => {
-        const dataWithSpaces = ['123 456', '123456 '];
-        const invalidData = [' ', 'abc', '!@#$%.,'];
+        const dataWithSpaces = invalidValues.dataWithSpaces; 
+        const invalidData = invalidValues.invalidData;
 
         for (let data of dataWithSpaces) {
             await profilePage.addPriceInput.clearValue();
