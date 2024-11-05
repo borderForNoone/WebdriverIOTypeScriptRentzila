@@ -44,4 +44,7 @@ export const validValues = {
     sixthServisesBodyTabContainerText: /контакти/,
     profilePagePrevButtonText: /Назад/,
     profilePageSaveBtnText: /Зрозуміло/,
+    minimumOrderCostTitle: /Вартість мінімального замовлення \*/,
+    currencyFieldValue: /UAH/,
+    minimumOrderCostInputText: /Наприклад, 1000/,
 };

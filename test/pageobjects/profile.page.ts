@@ -173,7 +173,7 @@ class ProfilePage extends Page {
         return $('[data-testid="address"]');
     }
 
-    get confirmAdressButton() {
+    get confirmAddressButton() {
         return $$('[class*="MapPopup_body"] [class*="ItemButtons_wrapper"]')[1];
     }
 
@@ -270,6 +270,10 @@ class ProfilePage extends Page {
     }
 
     get minimumOrderCostInputErrorMessage() {
+        return $('[class*="PricesUnitFlow_unitPriceWrapper"]');
+    }
+
+    get minimumOrderCostFieldRequiredInputErrorMessage() {
         return $('[class*="PricesUnitFlow_unitPriceWrapper"] [data-testid="div_required_RowUnitPrice"]');
     }
 
@@ -289,12 +293,20 @@ class ProfilePage extends Page {
         return $('[data-testid="addPriceButton_ServicePrice"]');
     }
 
+    get addPriceField() {
+        return $('[data-testid="div_ServicePrice"]');
+    }
+
     get addPriceInput() {
         return $$('[data-testid="priceInput_RowUnitPrice"]')[0];
     }
 
+    get addPriceInputField() {
+        return $$('[data-testid="priceInput_RowUnitPrice"]')[2];
+    }
+
     get addPriceInputErrorMessage() {
-        return $('[data-testid="div_required_RowUnitPrice"]');
+        return $('[data-testid="input_wrapper_RowUnitPrice"] ~ [class*="error"]');
     }
 
     get addPriceSelectField() {

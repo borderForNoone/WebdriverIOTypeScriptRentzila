@@ -36,13 +36,13 @@ describe('Verify vehicle location division', () => {
         await expect(profilePage.mapPopupCloseButton).toBeDisplayed();
         await expect(profilePage.mapPopupCloseButton).toBeDisplayed();
         await expect(profilePage.popupAddress).toHaveText(validValues.popupAddress);
-        await profilePage.confirmAdressButton.click();
+        await profilePage.confirmAddressButton.click();
         await expect(profilePage.vehicleLocationDivisionInput).toHaveText(validValues.popupAddress);
 
         await selectLocationOnMap();
         const expectedText = await profilePage.popupAddress.getText();
 
-        await profilePage.confirmAdressButton.click();
+        await profilePage.confirmAddressButton.click();
         
         await browser.waitUntil(async () => {
             const actualText = await profilePage.vehicleLocationDivisionInput.getText();

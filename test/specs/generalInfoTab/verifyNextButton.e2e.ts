@@ -46,7 +46,7 @@ describe('Verify "Далі" button', () => {
         await selectLocationOnMap();
         const expectedText = await profilePage.popupAddress.getText();
 
-        await profilePage.confirmAdressButton.click();
+        await profilePage.confirmAddressButton.click();
         await browser.waitUntil(async () => {
             const actualText = await profilePage.vehicleLocationDivisionInput.getText();
             return actualText === expectedText;

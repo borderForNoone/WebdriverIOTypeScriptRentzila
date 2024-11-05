@@ -1,5 +1,4 @@
 import type { Options } from '@wdio/types';
-import { join } from 'path';
 
 require('dotenv').config();
 
@@ -26,6 +25,7 @@ export const config: Options.Testrunner = {
             args: ['headless', 'disable-gpu'],
         },
         acceptInsecureCerts: true,
+        maxInstances: 5,
     }],
 
     logLevel: 'info',

@@ -16,16 +16,8 @@ export async function createUnitFillingInSectionsWithEightPhotos() {
 
     await createUnitFillingInFirstSection();
 
-    await browser.execute(() => {
-        const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
-        if (element) {
-            element.style.display = 'block';
-            element.style.visibility = 'visible';
-            element.style.opacity = '1';
-        }
-    });
+    await makeInputForImagesVisible();
 
-    await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
     await profilePage.imageInput.waitForEnabled({ timeout: 5000 });
 
     const remoteFilePaths = [];
@@ -46,16 +38,8 @@ export async function createUnitFillingInSectionsWithTwoPhotos() {
 
     await createUnitFillingInFirstSection();
 
-    await browser.execute(() => {
-        const element = document.querySelector('[data-testid="input_ImagesUnitFlow"]') as HTMLElement;
-        if (element) {
-            element.style.display = 'block';
-            element.style.visibility = 'visible';
-            element.style.opacity = '1';
-        }
-    });
+    await makeInputForImagesVisible()
 
-    await profilePage.addImagesDiv.waitForDisplayed({ timeout: 5000 });
     await profilePage.imageInput.waitForEnabled({ timeout: 5000 });
 
     const remoteFilePaths = [];
@@ -71,13 +55,15 @@ export async function createUnitFillingInSectionsWithTwoPhotos() {
 
 export async function createUnitFillingInFirstSection() {
     await browser.url(endpoints.createUnitPage.url);
-    await homePage.emailField.waitForDisplayed({ timeout: 5000 });
-    await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
+    if (!await profilePage.createUnitTitle.isDisplayed()) {
+        await homePage.emailField.waitForDisplayed({ timeout: 5000 });
+        await homePage.passwordField.waitForDisplayed({ timeout: 5000 });
 
-    await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
-    await homePage.passwordField.setValue(`${process.env.ADMIN_PASSWORD}`);
-
-    await homePage.submitButton.click();
+        await homePage.emailField.setValue(`${process.env.ADMIN_USERNAME}`);
+        await homePage.passwordField.setValue(`${process.env.ADMIN_PASSWORD}`);
+        
+        await homePage.submitButton.click();
+    }
 
     await profilePage.categoryField.click();
     await profilePage.firstColumnElements[0].click();
@@ -95,7 +81,7 @@ export async function createUnitFillingInFirstSection() {
     await selectLocationOnMap();
     const expectedText = await profilePage.popupAddress.getText();
 
-    await profilePage.confirmAdressButton.click();
+    await profilePage.confirmAddressButton.click();
 
     await expect(expectedText).toEqual(await profilePage.vehicleLocationDivisionInput.getText());
 

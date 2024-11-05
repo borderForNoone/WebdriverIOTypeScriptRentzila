@@ -13,4 +13,6 @@ export const invalidValues = {
     capitalCyrillic: 'АТЭК',
     firstCapitalCyrillic: 'Атэк',
     oneCapital: 'A',
+    dataWithSpaces: ['123 456', '123456 '],
+    invalidData: [' ', 'abc', '!@#$%.,'],
 };

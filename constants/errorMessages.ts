@@ -12,4 +12,7 @@ export const errorMessages = {
     profilePagePopUpWarningText: /Ви не можете завантажити двічі один файл/,
     profilePagePopUpErrorText: /Формат зображення не підтримується. Допустимі формати: .jpg, .jpeg, .png./,
     profilePagePopUpFileSizeErrorText: /Ви не можете завантажити файл більше 20 МВ./,
+    minimumOrderCostInputErrorMessage: /Мінімальна вартiсть має бути не менше 1000 грн/,
+    minimumOrderCostField: /inputWrapperError/,
+    minimumOrderCostInputWarnMessage: /Це поле обов’язкове/,
 };
